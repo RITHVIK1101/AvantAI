@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.timer-box {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.timer {
+  margin-right: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Merriweather', serif;
+}
+
+.access-link {
+  font-size: 16px;
+  color: #6c63ff;
+  text-decoration: none;
+}
+
+.main-title {
+  font-size: 58px;
+  font-weight: bold;
+}
+
+.subtitle {
+  font-size: 24px;
+  font-weight: 550;
+}
+.new{
+  font-size: 28px;
+  background: -webkit-linear-gradient(#a7bfff, #0d35ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 42px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .timer {
+    font-size: 14px;
+  }
+
+  .access-link {
+    font-size: 14px;
+  }
+}
