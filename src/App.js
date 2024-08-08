@@ -10,6 +10,8 @@ function App() {
     seconds: 0,
   });
 
+  const [isLoaded, setIsLoaded] = useState(false); // State to track if the content has loaded
+
   useEffect(() => {
     let endDate = localStorage.getItem('countdownEndDate');
     
@@ -40,18 +42,20 @@ function App() {
     updateTimer();
     const timerInterval = setInterval(updateTimer, 1000);
 
+    setTimeout(() => setIsLoaded(true), 100); // Simulate a delay before setting isLoaded to true
+
     return () => clearInterval(timerInterval);
   }, []);
 
   return (
-    <div className="container">
+    <div className={`container ${isLoaded ? 'loaded' : ''}`}>
       <div className="countdown-container">
         <div className="timer-box">
           <div className="timer">
             {`${timeLeft.days}D ${timeLeft.hours}H ${timeLeft.minutes}M ${timeLeft.seconds}S`}
           </div>
           <a href="https://tally.so/r/3lL6Ro" target="_blank" rel="noopener noreferrer" className="access-link">
-            Get early access →
+            Join waitlist →
           </a>
         </div>
       </div>

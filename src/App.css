@@ -14,6 +14,14 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.833s ease-in-out, transform 0.833s ease-in-out;
+}
+
+.container.loaded {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .countdown-container {
@@ -54,12 +62,14 @@ body {
   font-size: 24px;
   font-weight: 550;
 }
-.new{
+
+.new {
   font-size: 32px;
   background: -webkit-linear-gradient(#a7bfff, #0d35ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 @media (max-width: 768px) {
   .main-title {
     font-size: 42px;
