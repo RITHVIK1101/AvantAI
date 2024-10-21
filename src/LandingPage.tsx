@@ -1,18 +1,21 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Navbar from "./Navbar"; // Import the new Navbar component
 
-const gradientWords = ['Freelancers', 'Interns', 'Part-timers', 'Volunteers']
+const gradientWords = ["Freelancers", "Interns", "Part-timers", "Volunteers"];
 
 export default function LandingPage() {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentWordIndex((prevIndex) => (prevIndex + 1) % gradientWords.length)
-    }, 3000)
+      setCurrentWordIndex(
+        (prevIndex) => (prevIndex + 1) % gradientWords.length
+      );
+    }, 3000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-white text-gray-800 font-sans max-w-full overflow-x-hidden">
@@ -21,41 +24,13 @@ export default function LandingPage() {
         className="absolute inset-0 opacity-10 grid-background"
         animate={{ rotate: 360 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-        style={{ backgroundImage: 'url(/path/to/grid-image.png)', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
+        style={{
+          backgroundImage: "url(/path/to/grid-image.png)",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
       />
-<nav className="relative flex justify-between items-center px-6 py-2 w-10/12 mx-auto mt-1 bg-white bg-opacity-90 backdrop-blur-lg shadow-lg rounded-full z-50">
-  {/* Logo */}
-  <div className="text-xl font-semibold flex items-center">
-    <img src="./grid-logo.png" alt="Grid Logo" className="h-8 w-8 rounded-full mr-2" />
-    <span className="text-black">The Grid</span>
-  </div>
-
-  {/* Desktop Menu */}
-  <div className="hidden md:flex space-x-6 items-center">
-    <a href="#" className="text-sm font-medium text-black hover:text-gray-900 transition-colors duration-300 ease-in-out">
-      Home
-    </a>
-    <a href="#" className="text-sm font-medium text-black hover:text-gray-900 transition-colors duration-300 ease-in-out">
-      About
-    </a>
-    <a
-      href="#"
-      className="text-sm font-medium bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white px-4 py-1.5 rounded-full shadow-lg hover:opacity-90 transition-opacity duration-300 ease-in-out"
-    >
-      Waitlist
-    </a>
-  </div>
-
-  {/* Mobile Menu Button */}
-  <div className="md:hidden">
-    <MobileMenu />
-  </div>
-</nav>
-
-
-
-
-
+      <Navbar />
 
       {/* Main Content */}
       <main className="relative container mx-auto px-6 py-24 flex flex-col md:flex-row items-center justify-center z-10">
@@ -64,7 +39,7 @@ export default function LandingPage() {
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
             The Grid: Gig Marketplace
             <br />
-            for College{' '}
+            for College{" "}
             <AnimatePresence mode="wait">
               <motion.span
                 key={currentWordIndex}
@@ -80,8 +55,9 @@ export default function LandingPage() {
           </h1>
 
           <p className="text-base mb-6">
-            The first marketplace to connect college students with flexible job opportunities in
-            seconds—internships, part-time jobs, freelance gigs, and more.
+            The first marketplace to connect college students with flexible job
+            opportunities in seconds—internships, part-time jobs, freelance
+            gigs, and more.
           </p>
 
           <div className="flex items-center justify-center md:justify-start mb-6">
@@ -125,12 +101,12 @@ export default function LandingPage() {
         &copy; {new Date().getFullYear()} The Grid. All rights reserved.
       </footer>
     </div>
-  )
+  );
 }
 
 /* Mobile Menu Component */
 function MobileMenu() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="relative">
@@ -155,16 +131,27 @@ function MobileMenu() {
               d="M6 18L18 6M6 6l12 12"
             />
           ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           )}
         </svg>
       </button>
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
-          <a href="#" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
+          <a
+            href="#"
+            className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
+          >
             Home
           </a>
-          <a href="#" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100">
+          <a
+            href="#"
+            className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
+          >
             About
           </a>
           <a
@@ -176,5 +163,5 @@ function MobileMenu() {
         </div>
       )}
     </div>
-  )
+  );
 }
