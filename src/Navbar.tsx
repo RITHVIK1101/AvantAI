@@ -7,22 +7,26 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg shadow-sm">
+    <nav className="sticky top-0 z-100 bg-white/80 backdrop-blur-lg shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-24">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <GridLogo />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap"
+              rel="stylesheet"
+            ></link>
             <span
               className="hidden md:inline ml-10 gradient-text"
               style={{
-                fontSize: "1.6rem", // Larger size for more impact
-                fontFamily: "'Poppins', sans-serif", // Modern font
-                fontWeight: "500", // Bold weight to stand out
-                letterSpacing: "0.01em", // Slight letter spacing for elegance
+                fontSize: "2.2rem", // Larger size for more impact
+                fontFamily: "Oxanium", // Modern font
+                fontWeight: "800", // Bold weight to stand out
+                letterSpacing: "0.08em", // Slight letter spacing for elegance
               }}
             >
-              THE GRID
+              GRID
             </span>
           </div>
 
@@ -30,13 +34,13 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-4">
             <a
               href="#"
-              className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
+              className="text-gray-700 hover:text-gray-900 px-3 py-6 rounded-md text-sm font-medium transition duration-150 ease-in-out"
             >
               Home
             </a>
             <a
               href="#"
-              className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out"
+              className="text-gray-700 hover:text-gray-900 px-3 py-5 rounded-md text-sm font-medium transition duration-150 ease-in-out"
             >
               About
             </a>

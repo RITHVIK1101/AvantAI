@@ -22,8 +22,10 @@ const revolve = keyframes`
 
 const LogoContainer = styled.div`
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  margin-left: 55px;
+  margin-right: -20px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +39,7 @@ const RotatingGrid = styled(Grid)`
 const GridLogo: React.FC = () => {
   return (
     <LogoContainer>
-      <RotatingGrid size={32} />
+      <RotatingGrid size={56} />
     </LogoContainer>
   );
 };

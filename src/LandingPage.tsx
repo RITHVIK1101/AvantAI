@@ -36,10 +36,23 @@ export default function LandingPage() {
       <main className="relative container mx-auto px-6 py-24 flex flex-col md:flex-row items-center justify-center z-10">
         {/* Text Section */}
         <div className="md:w-1/2 text-center md:text-left md:px-12">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-            The Grid: Gig Marketplace
+          <link
+            href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            rel="stylesheet"
+          ></link>
+          <h1
+            className="text-10xl md:text-5xl font-semibold mb-6"
+            style={{
+              lineHeight: "1.4",
+              marginBottom: "2rem",
+              fontFamily: "Poppins",
+            }}
+          >
+            The Grid:
             <br />
-            for College{" "}
+            Gig Marketplace for
+            <br />
+            College{" "}
             <AnimatePresence mode="wait">
               <motion.span
                 key={currentWordIndex}
@@ -88,7 +101,7 @@ export default function LandingPage() {
             transition={{ duration: 1 }}
           >
             <img
-              src="./image1.png"
+              src="./img3.png"
               alt="Gig Marketplace Illustration"
               className="w-full rounded-xl"
             />
