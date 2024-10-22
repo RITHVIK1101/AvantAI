@@ -26,7 +26,7 @@ export default function Navbar() {
                 letterSpacing: "0.08em", // Slight letter spacing for elegance
               }}
             >
-              GRID
+              the GRID
             </span>
           </div>
 
