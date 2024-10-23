@@ -3,31 +3,22 @@ import { Menu } from "lucide-react";
 import { Button } from "./components/button";
 import GridLogo from "./GridLogo";
 
-export default function Navbar() {
+interface NavbarProps {
+  className?: string; // Optional className prop
+}
+
+export default function Navbar({ className = "" }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-100 bg-white/80 backdrop-blur-lg shadow-sm">
+    <nav className={`sticky top-0 z-100 bg-white/80 backdrop-blur-lg shadow-sm ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-24">
+        <div className="flex justify-between items-center h-16"> {/* Reduced height */}
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <GridLogo />
-            <link
-              href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap"
-              rel="stylesheet"
-            ></link>
-            <span
-              className="hidden md:inline ml-10 gradient-text"
-              style={{
-                fontSize: "2.2rem", // Larger size for more impact
-                fontFamily: "Oxanium", // Modern font
-                fontWeight: "800", // Bold weight to stand out
-                letterSpacing: "0.08em", // Slight letter spacing for elegance
-              }}
-            >
-              the GRID
-            </span>
+            <div style={{ width: '30px', height: '30px' }}> {/* Smaller logo */}
+              <GridLogo />
+            </div>
           </div>
 
           {/* Desktop menu */}
@@ -54,7 +45,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500"
-              aria-expanded="false"
+              aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
               <Menu className="block h-6 w-6" aria-hidden="true" />
@@ -100,20 +91,6 @@ export default function Navbar() {
           100% {
             background-position: 0% 50%;
           }
-        }
-
-        .gradient-text {
-          background: linear-gradient(
-            270deg,
-            #ff6b6b,
-            #feca57,
-            #48dbfb,
-            #ff9ff3
-          );
-          background-size: 800% 800%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: gradient 8s ease infinite;
         }
       `}</style>
     </nav>

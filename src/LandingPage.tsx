@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Navbar from "./Navbar"; // Import the new Navbar component
+import Navbar from "./Navbar"; // Import the Navbar component
 
 const gradientWords = ["Freelancers", "Interns", "Part-timers", "Volunteers"];
 
@@ -30,27 +30,45 @@ export default function LandingPage() {
           backgroundRepeat: "no-repeat",
         }}
       />
-      <Navbar />
+
+      {/* Navbar that stays fixed at the top */}
+      <Navbar className="fixed top-0 left-0 w-full z-50" />
 
       {/* Main Content */}
       <main className="relative container mx-auto px-6 py-24 flex flex-col md:flex-row items-center justify-center z-10">
-        {/* Text Section */}
-        <div className="md:w-1/2 text-center md:text-left md:px-12">
+        
+        {/* Fade-in effect for Waitlist Message */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5 }}
+          className="mb-4 p-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md shadow-lg text-sm font-medium text-center"
+        >
+          Join the waitlist now for free lifetime access
+        </motion.div>
+
+        {/* Text Section with Fade-in effect */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5, delay: 0.1 }} // Slight delay for a staggered effect
+          className="md:w-1/2 text-center md:text-left md:px-12"
+        >
           <link
-            href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
             rel="stylesheet"
-          ></link>
+          />
           <h1
-            className="text-10xl md:text-5xl font-semibold mb-6"
+            className="text-3xl md:text-5xl font-semibold mb-6"
             style={{
               lineHeight: "1.4",
               marginBottom: "2rem",
               fontFamily: "Poppins",
             }}
           >
-            The Grid:
-            <br />
-            Gig Marketplace for
+            Connect, Trade, Hire
             <br />
             College{" "}
             <AnimatePresence mode="wait">
@@ -68,9 +86,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="text-base mb-6">
-            The first marketplace to connect college students with flexible job
-            opportunities in seconds—internships, part-time jobs, freelance
-            gigs, and more.
+            The first marketplace to buy, sell, rent, and hire for everything from gigs to campus tasks. Connect with your peers and get things done together.
           </p>
 
           <div className="flex items-center justify-center md:justify-start mb-6">
@@ -90,10 +106,16 @@ export default function LandingPage() {
               Contact
             </button>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Image Section (On Mobile it goes below) */}
-        <div className="md:w-1/2 mb-12 md:mb-0 flex justify-center md:justify-end">
+        {/* Image Section (On Mobile it goes below) with Fade-in effect */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.5, delay: 0.2 }} // Slight delay for a staggered effect
+          className="md:w-1/2 mt-10 md:mt-0 flex justify-center md:justify-end"
+        >
           <motion.div
             className="bg-gray-100 p-6 rounded-3xl shadow-2xl"
             initial={{ scale: 0.95, opacity: 0 }}
@@ -106,75 +128,13 @@ export default function LandingPage() {
               className="w-full rounded-xl"
             />
           </motion.div>
-        </div>
+        </motion.div>
       </main>
 
       {/* Optional Footer */}
       <footer className="py-6 text-center text-sm text-gray-500">
         &copy; {new Date().getFullYear()} The Grid. All rights reserved.
       </footer>
-    </div>
-  );
-}
-
-/* Mobile Menu Component */
-function MobileMenu() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="relative">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="text-gray-800 focus:outline-none"
-        aria-label="Toggle navigation menu"
-      >
-        {/* Hamburger Icon */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          {isOpen ? (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          ) : (
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          )}
-        </svg>
-      </button>
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50">
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100"
-          >
-            About
-          </a>
-          <a
-            href="#"
-            className="block px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 hover:opacity-90"
-          >
-            Waitlist
-          </a>
-        </div>
-      )}
     </div>
   );
 }
