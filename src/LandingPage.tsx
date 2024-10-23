@@ -36,14 +36,14 @@ export default function LandingPage() {
 
       {/* Main Content */}
       <main className="relative container mx-auto px-6 py-24 flex flex-col md:flex-row items-center justify-center z-10">
-        
+
         {/* Fade-in effect for Waitlist Message */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
-          className="mb-4 p-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md shadow-lg text-sm font-medium text-center"
+          className="mb-4 p-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md shadow-lg text-sm font-medium text-center md:hidden" // Hidden on larger screens
         >
           Join the waitlist now for free lifetime access
         </motion.div>
@@ -60,6 +60,18 @@ export default function LandingPage() {
             href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
             rel="stylesheet"
           />
+          
+          {/* Move the waitlist message above the heading for larger screens */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="hidden md:block mb-4 p-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-md shadow-lg text-sm font-medium text-center"
+          >
+            Join the waitlist now for free lifetime access
+          </motion.div>
+
           <h1
             className="text-3xl md:text-5xl font-semibold mb-6"
             style={{
