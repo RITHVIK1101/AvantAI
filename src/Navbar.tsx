@@ -1,121 +1,125 @@
-import { useState } from "react";
+"use client";
+
+import React, { useState } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "./components/button";
-import GridLogo from "./GridLogo";
+import GridLogo from "./GridLogo"; // Import the previous GridLogo component
+import styled from "styled-components";
+
+const NavbarContainer = styled.nav`
+  position: sticky;
+  top: 16px;
+  z-index: 50;
+  max-width: 900px; /* Reduced the width */
+  margin: 0 auto;
+`;
+
+const NavbarContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px; /* Adjusted height to center-align logo */
+  padding: 8px 20px; /* Adjusted padding for compactness */
+  background: rgba(245, 245, 245, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+`;
+
+const Logo = styled.div`
+  display: flex;
+  align-items: center; /* Vertically align logo */
+  gap: 8px;
+  font-size: 18px; /* Adjusted font size for aesthetic */
+  font-weight: bold;
+  color: #000;
+`;
+
+const MenuItems = styled.div`
+  display: none;
+  @media (min-width: 768px) {
+    display: flex;
+    gap: 16px; /* Reduced gap for better spacing */
+  }
+`;
+
+const MenuItem = styled.a`
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  &:hover {
+    color: #000;
+  }
+`;
+
+const ConnectButton = styled(Button)`
+  background: #000;
+  color: white;
+  border-radius: 24px;
+  padding: 8px 16px;
+  font-weight: 500;
+  &:hover {
+    background: #333;
+  }
+`;
+
+const MobileMenuButton = styled.button`
+  @media (min-width: 768px) {
+    display: none;
+  }
+  background: transparent;
+  border: none;
+  cursor: pointer;
+`;
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-100 bg-white/80 backdrop-blur-lg shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-24">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
+    <NavbarContainer>
+      <NavbarContent>
+        {/* Updated Logo with GridLogo Component */}
+        <Logo>
+          <div style={{ width: "54px", height: "24px" }}>
             <GridLogo />
-            <link
-              href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap"
-              rel="stylesheet"
-            ></link>
-            <span
-              className="hidden md:inline ml-10 gradient-text"
-              style={{
-                fontSize: "2.2rem", // Larger size for more impact
-                fontFamily: "Oxanium", // Modern font
-                fontWeight: "800", // Bold weight to stand out
-                letterSpacing: "0.08em", // Slight letter spacing for elegance
-              }}
-            >
-              the GRID
-            </span>
           </div>
+          <span>the GRID</span>
+        </Logo>
 
-          {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-4">
-            <a
-              href="#"
-              className="text-gray-700 hover:text-gray-900 px-3 py-6 rounded-md text-sm font-medium transition duration-150 ease-in-out"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 hover:text-gray-900 px-3 py-5 rounded-md text-sm font-medium transition duration-150 ease-in-out"
-            >
-              About
-            </a>
-            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium py-2 px-4 rounded-full shadow-md hover:shadow-lg transition duration-300 ease-in-out">
-              Join Waitlist
-            </Button>
-          </div>
+        <MenuItems>
+          <MenuItem href="#">Home</MenuItem>
+          <MenuItem href="#">About</MenuItem>
+          <MenuItem href="#">Partners</MenuItem>
+          <MenuItem href="#">FAQs</MenuItem>
+        </MenuItems>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              <Menu className="block h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-        </div>
-      </div>
+        <ConnectButton>Join Waitlist</ConnectButton>
 
-      {/* Mobile menu, show/hide based on menu state */}
+        <MobileMenuButton onClick={() => setIsOpen(!isOpen)}>
+          <Menu className="h-6 w-6 text-gray-800" />
+        </MobileMenuButton>
+      </NavbarContent>
+
       {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a
-              href="#"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-            >
-              Home
-            </a>
-            <a
-              href="#"
-              className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-            >
-              About
-            </a>
-            <a
-              href="#"
-              className="block px-3 py-2 rounded-md text-base font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-            >
-              Join Waitlist
-            </a>
-          </div>
+        <div className="md:hidden mt-2 p-4 bg-white rounded-lg shadow-lg">
+          <MenuItem href="#" className="block py-2">
+            Home
+          </MenuItem>
+
+          <MenuItem href="#" className="block py-2">
+            About
+          </MenuItem>
+          <MenuItem href="#" className="block py-2">
+            Partners
+          </MenuItem>
+          <MenuItem href="#" className="block py-2">
+            News
+          </MenuItem>
+          <MenuItem href="#" className="block py-2">
+            FAQs
+          </MenuItem>
+          <ConnectButton className="w-full mt-4">Connect with us</ConnectButton>
         </div>
       )}
-
-      <style>{`
-        @keyframes gradient {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-
-        .gradient-text {
-          background: linear-gradient(
-            270deg,
-            #ff6b6b,
-            #feca57,
-            #48dbfb,
-            #ff9ff3
-          );
-          background-size: 800% 800%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: gradient 8s ease infinite;
-        }
-      `}</style>
-    </nav>
+    </NavbarContainer>
   );
 }
