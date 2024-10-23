@@ -19,17 +19,41 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen bg-white text-gray-800 font-sans max-w-full overflow-x-hidden">
-      {/* Rotating Grid in the Background */}
-      <motion.div
-        className="absolute inset-0 opacity-10 grid-background"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+      {/* Outer Shape with Swirly Animated Gradient */}
+      <div
+        className="absolute top-0 left-0 w-full h-[60vh] z-0"
         style={{
-          backgroundImage: "url(/path/to/grid-image.png)",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
+          clipPath: "polygon(0 0, 100% 0, 100% 70%, 0% 100%)", // Diagonal shape
+          overflow: "hidden",
         }}
-      />
+      >
+        {/* Swirly Gradient Background */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(120deg, #ff7eb3, #ff758c, #ffc7a8, #76baff, #a29bfe)",
+            backgroundSize: "300% 300%", // Larger background for smooth animation
+            animation: "gradientShift 10s infinite ease-in-out", // Apply animation
+          }}
+        ></div>
+      </div>
+
+      {/* Inline CSS for Animation */}
+      <style>{`
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
+
       <Navbar />
 
       {/* Main Content */}
