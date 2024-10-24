@@ -25,13 +25,14 @@ const NavbarContent = styled.div`
   border-radius: 50px;
 `;
 
-const Logo = styled.div`
+const Logo = styled.a` /* Wrapped the logo in an anchor tag */
   display: flex;
   align-items: center; /* Vertically align logo */
   gap: 8px;
   font-size: 18px; /* Adjusted font size for aesthetic */
   font-weight: bold;
   color: #000;
+  text-decoration: none; /* Remove underline from the link */
 `;
 
 const MenuItems = styled.div`
@@ -77,12 +78,12 @@ export default function Navbar() {
   return (
     <NavbarContainer>
       <NavbarContent>
-        {/* Updated Logo with GridLogo Component */}
-        <Logo>
+        {/* Updated Logo with GridLogo Component and link back to home */}
+        <Logo href="/">
           <div style={{ width: "54px", height: "24px" }}>
             <GridLogo />
           </div>
-          <span>the GRID</span>
+          <span>The Grid</span>
         </Logo>
 
         <MenuItems>
@@ -100,16 +101,16 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="md:hidden mt-2 p-4 bg-white rounded-lg shadow-lg">
-          <MenuItem href="#" className="block py-2">
+          <MenuItem href="/" className="block py-2">
             Home
           </MenuItem>
-          <MenuItem href="#" className="block py-2">
+          <MenuItem href="/about" className="block py-2">
             About
           </MenuItem>
-          <MenuItem href="#" className="block py-2">
+          <MenuItem href="/contact" className="block py-2">
             Contact
           </MenuItem>
-          <ConnectButton className="w-full mt-4">Connect with us</ConnectButton>
+          <ConnectButton className="w-full mt-4">Join Waitlist for Lifetime Access </ConnectButton>
         </div>
       )}
     </NavbarContainer>
