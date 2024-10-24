@@ -7,19 +7,27 @@ const AboutContainer = styled.div`
   padding: 0;
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  background: linear-gradient(135deg, #a8edea, #fed6e3); /* Updated to lighter gradient */
   overflow: hidden;
-  color: #fff;
+  color: #222; /* Changed text color to dark for better contrast */
 `;
 
 const ContentWrapper = styled.div`
   padding: 80px 40px;
   max-width: 1200px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    padding: 60px 20px;
+  }
 `;
 
 const Section = styled(motion.section)`
   margin-bottom: 80px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 60px;
+  }
 `;
 
 const Heading = styled(motion.h1)`
@@ -27,6 +35,15 @@ const Heading = styled(motion.h1)`
   font-weight: 700;
   margin-bottom: 24px;
   text-align: center;
+  color: #222; /* Ensure heading is dark */
+
+  @media (max-width: 768px) {
+    font-size: 2.25rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.75rem;
+  }
 `;
 
 const Subheading = styled(motion.h2)`
@@ -34,7 +51,17 @@ const Subheading = styled(motion.h2)`
   font-weight: 400;
   margin-bottom: 40px;
   text-align: center;
-  color: #ccc;
+  color: #555; /* Changed to darker gray */
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
 `;
 
 const Text = styled(motion.p)`
@@ -45,10 +72,21 @@ const Text = styled(motion.p)`
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  color: #444; /* Adjusted text color for readability */
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+  }
 `;
 
 const Highlight = styled.span`
-  color: #ffd700;
+  color: #ff8c00; /* Changed highlight color to a vibrant orange */
   font-weight: 600;
 `;
 
@@ -57,18 +95,30 @@ const StatsGrid = styled.div`
   justify-content: center;
   gap: 40px;
   margin-top: 60px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 30px;
+    margin-top: 40px;
+  }
 `;
 
 const StatCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.1);
+  background-color: #fff; /* Changed to white background */
   padding: 40px;
   border-radius: 16px;
   text-align: center;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
   transition: transform 0.3s ease;
+  width: 250px;
 
   &:hover {
     transform: translateY(-10px);
+  }
+
+  @media (max-width: 480px) {
+    padding: 30px;
+    width: 200px;
   }
 `;
 
@@ -76,11 +126,24 @@ const StatNumber = styled.h3`
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 16px;
+  color: #222; /* Dark text */
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.75rem;
+  }
 `;
 
 const StatLabel = styled.p`
   font-size: 1rem;
-  color: #ccc;
+  color: #666; /* Darker gray for visibility */
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const TestimonialsSection = styled(motion.section)`
@@ -93,6 +156,16 @@ const Testimonial = styled(motion.blockquote)`
   margin: 0 auto;
   max-width: 800px;
   line-height: 1.6;
+  color: #555; /* Darker color for contrast */
+
+  @media (max-width: 768px) {
+    font-size: 1.25rem;
+    max-width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
 `;
 
 export default function AboutPage() {
