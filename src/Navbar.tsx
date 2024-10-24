@@ -86,10 +86,9 @@ export default function Navbar() {
         </Logo>
 
         <MenuItems>
-          <MenuItem href="#">Home</MenuItem>
-          <MenuItem href="#">About</MenuItem>
-          <MenuItem href="#">Partners</MenuItem>
-          <MenuItem href="#">FAQs</MenuItem>
+          <MenuItem href="/">Home</MenuItem>
+          <MenuItem href="/about">About</MenuItem>
+          <MenuItem href="/contact">Contact</MenuItem>
         </MenuItems>
 
         <ConnectButton>Join Waitlist</ConnectButton>
@@ -104,18 +103,11 @@ export default function Navbar() {
           <MenuItem href="#" className="block py-2">
             Home
           </MenuItem>
-
           <MenuItem href="#" className="block py-2">
             About
           </MenuItem>
           <MenuItem href="#" className="block py-2">
-            Partners
-          </MenuItem>
-          <MenuItem href="#" className="block py-2">
-            News
-          </MenuItem>
-          <MenuItem href="#" className="block py-2">
-            FAQs
+            Contact
           </MenuItem>
           <ConnectButton className="w-full mt-4">Connect with us</ConnectButton>
         </div>
