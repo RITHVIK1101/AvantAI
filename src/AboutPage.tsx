@@ -132,35 +132,27 @@ export default function AboutPage() {
           <Subheading>Connecting Students in New and Exciting Ways</Subheading>
           <Text>
             College students value <Highlight>time</Highlight> and{" "}
-            <Highlight>money</Highlight>. At <Highlight>The Grid</Highlight>, we created a
-            platform where you can buy, sell, and rent items from fellow students. Whether it's
-            textbooks, furniture, or gadgets—you'll find it here.
+            <Highlight>money</Highlight>. At <Highlight>The Grid</Highlight>, we
+            created a platform where you can buy, sell, and rent items from
+            fellow students. Whether it's textbooks, furniture, or
+            gadgets—you'll find it here.
           </Text>
           <Text>
-            Need help with tedious tasks? Pay others to assist you—be it with assignments or grabbing
-            a quick boba from the local campus store.
+            Need help with tedious tasks? Pay others to assist you—be it with
+            assignments or grabbing a quick boba from the local campus store.
           </Text>
         </Section>
 
         <StatsGrid>
-          <StatCard
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          >
+          <StatCard whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
             <StatNumber>2024</StatNumber>
             <StatLabel>Founded</StatLabel>
           </StatCard>
-          <StatCard
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          >
+          <StatCard whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
             <StatNumber>4</StatNumber>
             <StatLabel>Team Members</StatLabel>
           </StatCard>
-          <StatCard
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.3 }}
-          >
+          <StatCard whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
             <StatNumber>100+</StatNumber>
             <StatLabel>Active Users</StatLabel>
           </StatCard>
