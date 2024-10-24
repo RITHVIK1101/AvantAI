@@ -2,8 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-import LandingPage from './LandingPage'; // Import the landing page
-import ContactPage from './ContactPage'; // Import the contact page
+import LandingPage from './LandingPage';
+import ContactPage from './ContactPage';
+import AboutPage from './AboutPage'; // Import the About page
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
             }
           />
           
+          {/* Define the route for the about page */}
+          <Route path="/about" element={<AboutPage />} />
+
           {/* Define the route for the contact page */}
           <Route path="/contact" element={<ContactPage />} />
         </Routes>

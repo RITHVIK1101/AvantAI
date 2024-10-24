@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import Navbar from './Navbar'; // Adjust the path according to your project structure
 
 const ContactContainer = styled(motion.div)`
   display: flex;
@@ -9,7 +10,7 @@ const ContactContainer = styled(motion.div)`
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
-  background: linear-gradient(135deg, #a8edea, #fed6e3); /* Soft pastel gradient */
+  background: linear-gradient(135deg, #a8edea, #fed6e3);
 `;
 
 const ContactTitle = styled(motion.h1)`
@@ -32,7 +33,7 @@ const EmailBox = styled(motion.div)`
   transition: all 0.3s ease;
   &:hover {
     border-color: #000;
-    transform: translateY(-10px); /* Lift on hover */
+    transform: translateY(-10px);
   }
 `;
 
@@ -72,54 +73,57 @@ const FooterText = styled(motion.p)`
 
 export default function ContactPage() {
   return (
-    <ContactContainer
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      <ContactTitle
+    <>
+      <Navbar />
+      <ContactContainer
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        Get in Touch
-      </ContactTitle>
+        <ContactTitle
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+        >
+          Get in Touch
+        </ContactTitle>
 
-      <EmailBox
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-      >
-        <EmailText href="mailto:dhruvreddy05@gmail.com">
-          dhruvreddy05@gmail.com
-        </EmailText>
-      </EmailBox>
+        <EmailBox
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+        >
+          <EmailText href="mailto:dhruvreddy05@gmail.com">
+            dhruvreddy05@gmail.com
+          </EmailText>
+        </EmailBox>
 
-      <EmailBox
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
-      >
-        <EmailText href="mailto:rithviksaba@gmail.com">
-          rithviksaba@gmail.com
-        </EmailText>
-      </EmailBox>
+        <EmailBox
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.4, ease: 'easeOut' }}
+        >
+          <EmailText href="mailto:rithviksaba@gmail.com">
+            rithviksaba@gmail.com
+          </EmailText>
+        </EmailBox>
 
-      <Button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ duration: 0.3 }}
-      >
-        Send Us a Message
-      </Button>
+        <Button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.3 }}
+        >
+          Send Us a Message
+        </Button>
 
-      <FooterText
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.6, ease: "easeOut" }}
-      >
-        We’ll get back to you as soon as possible!
-      </FooterText>
-    </ContactContainer>
+        <FooterText
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.6, ease: 'easeOut' }}
+        >
+          We’ll get back to you as soon as possible!
+        </FooterText>
+      </ContactContainer>
+    </>
   );
 }
