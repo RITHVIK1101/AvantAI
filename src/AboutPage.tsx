@@ -7,128 +7,96 @@ const AboutContainer = styled.div`
   padding: 0;
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #a8edea, #fed6e3); /* Keep the theme's gradient */
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
   overflow: hidden;
+  color: #fff;
 `;
 
 const ContentWrapper = styled.div`
-  padding: 40px;
-  max-width: 1100px;
+  padding: 80px 40px;
+  max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
-const Section = styled(motion.div)`
-  margin-bottom: 40px;
-  background: rgba(255, 255, 255, 0.85); /* Light background for text */
-  border-radius: 16px;
-  padding: 30px;
-  max-width: 100%;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
-  }
-`;
-
-const GridContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  width: 100%;
-  margin-top: 30px;
-`;
-
-const Card = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.9); /* Consistent with other text areas */
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  border: 2px solid rgba(255, 223, 0, 0.3); /* Add subtle gold accents */
-  transition: all 0.3s ease;
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(255, 223, 0, 0.4);
-  }
+const Section = styled(motion.section)`
+  margin-bottom: 80px;
 `;
 
 const Heading = styled(motion.h1)`
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #222; /* Dark text to contrast */
-  margin-bottom: 16px;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
 `;
 
 const Subheading = styled(motion.h2)`
-  font-size: 1.3rem;
-  color: #333; /* Darker text to complement the theme */
-  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #ccc;
 `;
 
 const Text = styled(motion.p)`
-  font-size: 1rem;
-  color: #444;
-  line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 `;
 
 const Highlight = styled.span`
-  color: rgba(255, 223, 0, 0.9); /* Gold highlight for key terms */
-  font-weight: bold;
+  color: #ffd700;
+  font-weight: 600;
 `;
 
-const BoxContainer = styled.div`
+const StatsGrid = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  flex-wrap: wrap;
-  margin-top: 40px;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 60px;
 `;
 
-const Box = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.9); /* Lightened for consistency */
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+const StatCard = styled(motion.div)`
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 16px;
   text-align: center;
-  width: 150px;
-  margin: 20px;
-  border: 2px solid rgba(255, 223, 0, 0.3);
-  transition: all 0.3s ease;
-  
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+
   &:hover {
-    box-shadow: 0 8px 24px rgba(255, 223, 0, 0.4);
+    transform: translateY(-10px);
   }
 `;
 
-const BoxHeading = styled.h3`
+const StatNumber = styled.h3`
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+`;
+
+const StatLabel = styled.p`
   font-size: 1rem;
-  font-weight: bold;
-  color: #222; /* Subtle dark text for contrast */
-  margin-bottom: 8px;
+  color: #ccc;
 `;
 
-const BoxText = styled.p`
-  font-size: 0.9rem;
-  color: #555;
+const TestimonialsSection = styled(motion.section)`
+  text-align: center;
 `;
 
-const MouseFollower = styled.img`
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease;
+const Testimonial = styled(motion.blockquote)`
+  font-size: 1.5rem;
+  font-style: italic;
+  margin: 0 auto;
+  max-width: 800px;
+  line-height: 1.6;
 `;
 
 export default function AboutPage() {
-  const questions = [
+  const testimonials = [
     "I wish somebody could grab boba for me from the campus drop-off.",
     "I really need help on this assignment.",
     "Why do I have to walk to get my lunch every day?",
@@ -141,81 +109,83 @@ export default function AboutPage() {
     "Who can take notes for me in today's lecture?",
   ];
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentQuestion((prev) => (prev + 1) % questions.length);
-    }, 2500);
+      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 3000);
 
     return () => clearInterval(interval);
-  }, [questions.length]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setMousePosition({ x: e.clientX, y: e.clientY });
-  };
+  }, [testimonials.length]);
 
   return (
-    <AboutContainer onMouseMove={handleMouseMove}>
-      <MouseFollower
-        src="https://example.com/cat-cursor.png" /* Replace with actual image URL */
-        alt="Cat Cursor"
-        style={{ transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)` }}
-      />
+    <AboutContainer>
       <Navbar />
       <ContentWrapper>
         <Section
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
           <Heading>About The Grid</Heading>
           <Subheading>Connecting Students in New and Exciting Ways</Subheading>
           <Text>
             College students value <Highlight>time</Highlight> and{" "}
-            <Highlight>money</Highlight>. At <Highlight>The Grid</Highlight>, we
-            wanted a place where you can buy, sell, and rent stuff from other
-            students. Whether it's textbooks, furniture, or gadgets, you can find
-            it here.
+            <Highlight>money</Highlight>. At <Highlight>The Grid</Highlight>, we created a
+            platform where you can buy, sell, and rent items from fellow students. Whether it's
+            textbooks, furniture, or gadgets—you'll find it here.
           </Text>
           <Text>
-            As well as pay others to do tedious tasks—whether it's helping on an
-            assignment or grabbing boba from the local campus store for a quick drop-off.
+            Need help with tedious tasks? Pay others to assist you—be it with assignments or grabbing
+            a quick boba from the local campus store.
           </Text>
         </Section>
 
-        <GridContainer>
-          <Card>
-            <BoxHeading>Founded</BoxHeading>
-            <BoxText>2024</BoxText>
-          </Card>
-          <Card>
-            <BoxHeading>Team Size</BoxHeading>
-            <BoxText>4</BoxText>
-          </Card>
-        </GridContainer>
+        <StatsGrid>
+          <StatCard
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
+            <StatNumber>2024</StatNumber>
+            <StatLabel>Founded</StatLabel>
+          </StatCard>
+          <StatCard
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
+            <StatNumber>4</StatNumber>
+            <StatLabel>Team Members</StatLabel>
+          </StatCard>
+          <StatCard
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
+            <StatNumber>100+</StatNumber>
+            <StatLabel>Active Users</StatLabel>
+          </StatCard>
+        </StatsGrid>
 
-        <Section
-          initial={{ opacity: 0, y: 30 }}
+        <TestimonialsSection
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
         >
           <Heading>What Students Are Saying</Heading>
 
           <AnimatePresence mode="wait">
-            <motion.div
-              key={currentQuestion}
+            <Testimonial
+              key={currentTestimonial}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.6 }}
             >
-              "{questions[currentQuestion]}"
-            </motion.div>
+              "{testimonials[currentTestimonial]}"
+            </Testimonial>
           </AnimatePresence>
-        </Section>
+        </TestimonialsSection>
       </ContentWrapper>
     </AboutContainer>
   );
