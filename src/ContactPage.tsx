@@ -1,7 +1,7 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-import Navbar from './Navbar'; // Adjust the path according to your project structure
+import React from "react";
+import { motion } from "framer-motion";
+import styled from "styled-components";
+import Navbar from "./Navbar"; // Adjust the path according to your project structure
 
 const ContactContainer = styled(motion.div)`
   display: flex;
@@ -78,12 +78,12 @@ export default function ContactPage() {
       <ContactContainer
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <ContactTitle
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
+          transition={{ duration: 1, ease: "easeOut" }}
         >
           Get in Touch
         </ContactTitle>
@@ -91,7 +91,7 @@ export default function ContactPage() {
         <EmailBox
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: 'easeOut' }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
         >
           <EmailText href="mailto:dhruvreddy05@gmail.com">
             dhruvreddy05@gmail.com
@@ -101,7 +101,7 @@ export default function ContactPage() {
         <EmailBox
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.4, ease: 'easeOut' }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
         >
           <EmailText href="mailto:rithviksaba@gmail.com">
             rithviksaba@gmail.com
@@ -119,7 +119,7 @@ export default function ContactPage() {
         <FooterText
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.6, ease: 'easeOut' }}
+          transition={{ duration: 1.6, ease: "easeOut" }}
         >
           We’ll get back to you as soon as possible!
         </FooterText>

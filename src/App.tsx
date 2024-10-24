@@ -1,10 +1,10 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import logo from './logo.svg';
-import './App.css';
-import LandingPage from './LandingPage';
-import ContactPage from './ContactPage';
-import AboutPage from './AboutPage'; // Import the About page
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import logo from "./logo.svg";
+import "./App.css";
+import LandingPage from "./LandingPage";
+import ContactPage from "./ContactPage";
+import AboutPage from "./AboutPage"; // Import the About page
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           {/* Define the route for the landing page */}
           <Route path="/" element={<LandingPage />} />
-          
+
           {/* Define the route for the main app (can be another page or app component) */}
           <Route
             path="/app"
@@ -34,7 +34,7 @@ function App() {
               </header>
             }
           />
-          
+
           {/* Define the route for the about page */}
           <Route path="/about" element={<AboutPage />} />
 
