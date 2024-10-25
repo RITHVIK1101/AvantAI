@@ -8,10 +8,12 @@ import {
 import Navbar from "./Navbar";
 import "./gradientAnimation.css";
 
-const gradientWords = ["Everything", "Tasks", "Assignments",];
+const gradientWords = ["Everything", "Tasks", "Assignments"];
+const imagePaths = ["/UIimg1.png", "/UIimg2.png", "/UIimage3.png"];
 
 export default function LandingPage() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const logoSectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: logoSectionRef,
@@ -23,13 +25,22 @@ export default function LandingPage() {
   const getColorClass = () => "text-white drop-shadow-lg";
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const wordInterval = setInterval(() => {
       setCurrentWordIndex(
         (prevIndex) => (prevIndex + 1) % gradientWords.length
       );
     }, 3000);
 
-    return () => clearInterval(interval);
+    const imageInterval = setInterval(() => {
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % imagePaths.length
+      );
+    }, 2000);
+
+    return () => {
+      clearInterval(wordInterval);
+      clearInterval(imageInterval);
+    };
   }, []);
 
   return (
@@ -90,7 +101,9 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-base mb-6 text-gray-600 font-bold">
-            The first marketplace to buy, sell, rent, and hire for gigs and campus tasks. From grabbing boba to getting assignment help, connect with peers and get things done together.
+              The first marketplace to buy, sell, rent, and hire for gigs and
+              campus tasks. From grabbing boba to getting assignment help,
+              connect with peers and get things done together.
             </p>
 
             <div className="flex items-center justify-center md:justify-start mb-6">
@@ -122,18 +135,20 @@ export default function LandingPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="md:w-1/2 mt-10 md:mt-0 flex justify-center md:justify-end"
           >
-            <motion.div
-              className="bg-white p-8 pl-18 rounded-3xl shadow-2xl"
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1 }}
-            >
-              <img
-                src="./img3.png"
-                alt="Gig Marketplace Illustration"
-                className="w-full rounded-xl"
-              />
-            </motion.div>
+            <div className="bg-white p-8 pl-18 rounded-3xl shadow-2xl">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentImageIndex}
+                  src={imagePaths[currentImageIndex]}
+                  alt="Gig Marketplace Illustration"
+                  className="w-full rounded-xl"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                />
+              </AnimatePresence>
+            </div>
           </motion.div>
         </main>
 
