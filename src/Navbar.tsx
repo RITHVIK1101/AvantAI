@@ -80,16 +80,6 @@ const MobileMenuButton = styled.button`
   border: none;
   cursor: pointer;
 `;
-const MobileMenu = styled.div`
-  position: absolute; /* Position the menu absolutely */
-  top: 60px; /* Position it right below the navbar */
-  left: 0;
-  width: 100%; /* Full width on mobile */
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 100; /* Ensure it stays on top of other content */
-`;
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
