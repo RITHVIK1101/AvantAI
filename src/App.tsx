@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import LandingPage from "./LandingPage";
 import ContactPage from "./ContactPage";
-import AboutPage from "./AboutPage"; // Import the About page
+import AboutPage from "./AboutPage";
+import BuildWithUsPage from "./BuildWithUsPage"; // Import the Build with Us page
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           {/* Define the route for the landing page */}
           <Route path="/" element={<LandingPage />} />
+
           {/* Define the route for the main app (can be another page or app component) */}
           <Route
             path="/app"
@@ -38,6 +40,9 @@ function App() {
 
           {/* Define the route for the contact page */}
           <Route path="/contact" element={<ContactPage />} />
+
+          {/* Define the route for the Build with Us page */}
+          <Route path="/build-with-us" element={<BuildWithUsPage />} />
         </Routes>
       </div>
     </Router>

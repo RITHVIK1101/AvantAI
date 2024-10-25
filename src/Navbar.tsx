@@ -1,16 +1,17 @@
+// Navbar.tsx
 "use client";
 
 import React, { useState } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "./components/button";
-import GridLogo from "./GridLogo"; // Import the previous GridLogo component
+import GridLogo from "./GridLogo";
 import styled from "styled-components";
 
 const NavbarContainer = styled.nav`
   position: sticky;
   top: 46px;
   z-index: 50;
-  max-width: 840px; /* Reduced the width */
+  max-width: 840px;
   margin: 0 auto;
 `;
 
@@ -18,37 +19,35 @@ const NavbarContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px; /* Adjusted height to center-align logo */
-  padding: 8px 20px; /* Adjusted padding for compactness */
+  height: 60px;
+  padding: 8px 20px;
   @media (min-width: 768px) {
     background: rgba(245, 245, 245, 0.8);
   }
-
   backdrop-filter: blur(10px);
   border-radius: 50px;
   @media (max-width: 768px) {
     background: none;
     backdrop-filter: none;
-    gap: 16px; /* Reduced gap for better spacing */
+    gap: 16px;
   }
 `;
 
 const Logo = styled.a`
-  /* Wrapped the logo in an anchor tag */
   display: flex;
-  align-items: center; /* Vertically align logo */
+  align-items: center;
   gap: 8px;
-  font-size: 18px; /* Adjusted font size for aesthetic */
+  font-size: 18px;
   font-weight: bold;
   color: #000;
-  text-decoration: none; /* Remove underline from the link */
+  text-decoration: none;
 `;
 
 const MenuItems = styled.div`
   display: none;
   @media (min-width: 768px) {
     display: flex;
-    gap: 16px; /* Reduced gap for better spacing */
+    gap: 16px;
   }
 `;
 
@@ -86,23 +85,22 @@ export default function Navbar() {
 
   return (
     <NavbarContainer>
-      <NavbarContent className="bg-transparent md:bg-white md:rounded-full">
+      <NavbarContent>
         <Logo href="/">
           <div style={{ width: "54px", height: "24px" }}>
             <GridLogo />
           </div>
-          <span className="hidden md:inline">The Grid</span>{" "}
-          {/* Only visible on md and above */}
+          <span className="hidden md:inline">The Grid</span>
         </Logo>
         <MenuItems>
           <MenuItem href="/">Home</MenuItem>
           <MenuItem href="/about">About</MenuItem>
           <MenuItem href="/contact">Contact</MenuItem>
+          <MenuItem href="/build-with-us">Build with Us</MenuItem> {/* New Link */}
         </MenuItems>
         <ConnectButton className="hidden md:inline-block">
           Join Waitlist
-        </ConnectButton>{" "}
-        {/* Hidden on phone screens */}
+        </ConnectButton>
         <MobileMenuButton onClick={() => setIsOpen(!isOpen)}>
           <Menu className="h-6 w-6 text-gray-800" />
         </MobileMenuButton>
@@ -110,15 +108,10 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="absolute top-[60px] p-4 left-0 w-full bg-white rounded-lg shadow-lg z-50">
-          <a href="/" className="block py-2 px-4">
-            Home
-          </a>
-          <a href="/about" className="block py-2 px-4">
-            About
-          </a>
-          <a href="/contact" className="block py-2 px-4">
-            Contact
-          </a>
+          <a href="/" className="block py-2 px-4">Home</a>
+          <a href="/about" className="block py-2 px-4">About</a>
+          <a href="/contact" className="block py-2 px-4">Contact</a>
+          <a href="/build-with-us" className="block py-2 px-4">Build with Us</a>
           <button className="w-full mt-4 bg-black text-white py-2 rounded-lg">
             Join Waitlist for Lifetime Access
           </button>
