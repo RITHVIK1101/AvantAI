@@ -80,6 +80,16 @@ const MobileMenuButton = styled.button`
   border: none;
   cursor: pointer;
 `;
+const MobileMenu = styled.div`
+  position: absolute; /* Position the menu absolutely */
+  top: 60px; /* Position it right below the navbar */
+  left: 0;
+  width: 100%; /* Full width on mobile */
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100; /* Ensure it stays on top of other content */
+`;
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -109,19 +119,19 @@ export default function Navbar() {
       </NavbarContent>
 
       {isOpen && (
-        <div className="md:hidden mt-2 p-4 bg-white rounded-lg shadow-lg">
-          <MenuItem href="/" className="block py-2">
+        <div className="absolute top-[60px] p-4 left-0 w-full bg-white rounded-lg shadow-lg z-50">
+          <a href="/" className="block py-2 px-4">
             Home
-          </MenuItem>
-          <MenuItem href="/about" className="block py-2">
+          </a>
+          <a href="/about" className="block py-2 px-4">
             About
-          </MenuItem>
-          <MenuItem href="/contact" className="block py-2">
+          </a>
+          <a href="/contact" className="block py-2 px-4">
             Contact
-          </MenuItem>
-          <ConnectButton className="w-full mt-4">
-            Join Waitlist for Lifetime Access{" "}
-          </ConnectButton>
+          </a>
+          <button className="w-full mt-4 bg-black text-white py-2 rounded-lg">
+            Join Waitlist for Lifetime Access
+          </button>
         </div>
       )}
     </NavbarContainer>
