@@ -32,9 +32,7 @@ export default function LandingPage() {
     }, 3000);
 
     const imageInterval = setInterval(() => {
-      setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % imagePaths.length
-      );
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imagePaths.length);
     }, 2000);
 
     return () => {
@@ -46,7 +44,7 @@ export default function LandingPage() {
   return (
     <div className="relative bg-white text-gray-800 font-sans max-w-full overflow-x-hidden">
       {/* Gradient Background */}
-      <div className="absolute top-0 left-0 right-0 h-[87vh] bg-gradient-to-br from-purple-300 via-pink-300 to-orange-300 transform -skew-y-6 origin-top-left z-0">
+      <div className="absolute top-0 left-0 right-0 h-[86vh] md:mt-0 h-[92vh] bg-gradient-to-br from-purple-300 via-pink-300 to-orange-300 transform -skew-y-6 origin-top-left z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 opacity-50 animate-gradient"></div>
       </div>
 
@@ -69,7 +67,8 @@ export default function LandingPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className="mb-4 p-2 bg-white text-gray-800 rounded-md shadow-lg text-sm font-medium text-center"
+              className="mb-4 p-2 bg-white text-gray-800 rounded-md shadow-lg text-sm font-medium text-center
+             md:mt-0 mt-16"
             >
               Join the waitlist now for free lifetime access
             </motion.div>

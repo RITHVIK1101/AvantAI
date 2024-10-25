@@ -23,7 +23,8 @@ const LogoContainer = styled.div`
 
   @media (max-width: 768px) {
     width: 30px; /* Smaller size for mobile */
-    height: 30px;
+    height: 25px;
+    margin-top: -2px;
     margin-left: 12px; /* Increase margin for mobile */
   }
 `;

@@ -11,8 +11,9 @@ const AboutContainer = styled(motion.div)`
   align-items: center;
   justify-content: center; /* Center content vertically */
   min-height: 100vh;
-  padding: 20px; /* Add some padding */
+  padding: 70px; /* Add some padding */
   background: linear-gradient(135deg, #a8edea, #fed6e3);
+  margin-top: -60px;
   color: #222;
 `;
 

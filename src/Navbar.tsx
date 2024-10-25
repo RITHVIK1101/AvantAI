@@ -20,9 +20,17 @@ const NavbarContent = styled.div`
   align-items: center;
   height: 60px; /* Adjusted height to center-align logo */
   padding: 8px 20px; /* Adjusted padding for compactness */
-  background: rgba(245, 245, 245, 0.8);
+  @media (min-width: 768px) {
+    background: rgba(245, 245, 245, 0.8);
+  }
+
   backdrop-filter: blur(10px);
   border-radius: 50px;
+  @media (max-width: 768px) {
+    background: none;
+    backdrop-filter: none;
+    gap: 16px; /* Reduced gap for better spacing */
+  }
 `;
 
 const Logo = styled.a`
@@ -78,42 +86,42 @@ export default function Navbar() {
 
   return (
     <NavbarContainer>
-      <NavbarContent>
-        {/* Updated Logo with GridLogo Component and link back to home */}
+      <NavbarContent className="bg-transparent md:bg-white md:rounded-full">
         <Logo href="/">
           <div style={{ width: "54px", height: "24px" }}>
             <GridLogo />
           </div>
-          <span>The Grid</span>
+          <span className="hidden md:inline">The Grid</span>{" "}
+          {/* Only visible on md and above */}
         </Logo>
-
         <MenuItems>
           <MenuItem href="/">Home</MenuItem>
           <MenuItem href="/about">About</MenuItem>
           <MenuItem href="/contact">Contact</MenuItem>
         </MenuItems>
-
-        <ConnectButton>Join Waitlist</ConnectButton>
-
+        <ConnectButton className="hidden md:inline-block">
+          Join Waitlist
+        </ConnectButton>{" "}
+        {/* Hidden on phone screens */}
         <MobileMenuButton onClick={() => setIsOpen(!isOpen)}>
           <Menu className="h-6 w-6 text-gray-800" />
         </MobileMenuButton>
       </NavbarContent>
 
       {isOpen && (
-        <div className="md:hidden mt-2 p-4 bg-white rounded-lg shadow-lg">
-          <MenuItem href="/" className="block py-2">
+        <div className="absolute top-[60px] p-4 left-0 w-full bg-white rounded-lg shadow-lg z-50">
+          <a href="/" className="block py-2 px-4">
             Home
-          </MenuItem>
-          <MenuItem href="/about" className="block py-2">
+          </a>
+          <a href="/about" className="block py-2 px-4">
             About
-          </MenuItem>
-          <MenuItem href="/contact" className="block py-2">
+          </a>
+          <a href="/contact" className="block py-2 px-4">
             Contact
-          </MenuItem>
-          <ConnectButton className="w-full mt-4">
-            Join Waitlist for Lifetime Access{" "}
-          </ConnectButton>
+          </a>
+          <button className="w-full mt-4 bg-black text-white py-2 rounded-lg">
+            Join Waitlist for Lifetime Access
+          </button>
         </div>
       )}
     </NavbarContainer>

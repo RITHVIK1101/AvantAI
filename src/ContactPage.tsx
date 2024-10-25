@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import Navbar from "./Navbar"; // Adjust the path according to your project structure
@@ -8,8 +7,9 @@ const ContactContainer = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
+  height: 100vh;
+  margin-top: -60px;
+
   background: linear-gradient(135deg, #a8edea, #fed6e3);
 `;
 
@@ -17,6 +17,7 @@ const ContactTitle = styled(motion.h1)`
   font-size: 42px;
   color: #222;
   margin-bottom: 40px;
+  margin-top: 70px;
   text-align: center;
   letter-spacing: 1.2px;
 `;
