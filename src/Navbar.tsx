@@ -20,9 +20,17 @@ const NavbarContent = styled.div`
   align-items: center;
   height: 60px; /* Adjusted height to center-align logo */
   padding: 8px 20px; /* Adjusted padding for compactness */
-  background: rgba(245, 245, 245, 0.8);
+  @media (min-width: 768px) {
+    background: rgba(245, 245, 245, 0.8);
+  }
+
   backdrop-filter: blur(10px);
   border-radius: 50px;
+  @media (max-width: 768px) {
+    background: none;
+    backdrop-filter: none;
+    gap: 16px; /* Reduced gap for better spacing */
+  }
 `;
 
 const Logo = styled.a`
@@ -78,23 +86,23 @@ export default function Navbar() {
 
   return (
     <NavbarContainer>
-      <NavbarContent>
-        {/* Updated Logo with GridLogo Component and link back to home */}
+      <NavbarContent className="bg-transparent md:bg-white md:rounded-full">
         <Logo href="/">
           <div style={{ width: "54px", height: "24px" }}>
             <GridLogo />
           </div>
-          <span>The Grid</span>
+          <span className="hidden md:inline">The Grid</span>{" "}
+          {/* Only visible on md and above */}
         </Logo>
-
         <MenuItems>
           <MenuItem href="/">Home</MenuItem>
           <MenuItem href="/about">About</MenuItem>
           <MenuItem href="/contact">Contact</MenuItem>
         </MenuItems>
-
-        <ConnectButton>Join Waitlist</ConnectButton>
-
+        <ConnectButton className="hidden md:inline-block">
+          Join Waitlist
+        </ConnectButton>{" "}
+        {/* Hidden on phone screens */}
         <MobileMenuButton onClick={() => setIsOpen(!isOpen)}>
           <Menu className="h-6 w-6 text-gray-800" />
         </MobileMenuButton>
