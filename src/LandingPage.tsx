@@ -8,7 +8,7 @@ import {
 import Navbar from "./Navbar";
 import "./gradientAnimation.css";
 
-const gradientWords = ["Freelancers", "Interns", "Part-timers", "Volunteers"];
+const gradientWords = ["Everything", "Tasks", "Assignments",];
 
 export default function LandingPage() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -71,9 +71,9 @@ export default function LandingPage() {
                 fontFamily: "Poppins, sans-serif",
               }}
             >
-              Connect, Trade, Hire
+              The Campus Marketplace
               <br />
-              College{" "}
+              for{" "}
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentWordIndex}
@@ -90,9 +90,7 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-base mb-6 text-gray-600 font-bold">
-              The first marketplace to buy, sell, rent, and hire for everything
-              from gigs to campus tasks. Connect with your peers and get things
-              done together.
+            The first marketplace to buy, sell, rent, and hire for gigs and campus tasks. From grabbing boba to getting assignment help, connect with peers and get things done together.
             </p>
 
             <div className="flex items-center justify-center md:justify-start mb-6">
