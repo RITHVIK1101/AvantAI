@@ -23,8 +23,12 @@ export default function LandingPage() {
   const logoSectionOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   const getColorClass = () => "text-white drop-shadow-lg";
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+
     const wordInterval = setInterval(() => {
       setCurrentWordIndex(
         (prevIndex) => (prevIndex + 1) % gradientWords.length
@@ -44,7 +48,7 @@ export default function LandingPage() {
   return (
     <div className="relative bg-white text-gray-800 font-sans max-w-full overflow-x-hidden">
       {/* Gradient Background */}
-      <div className="absolute top-0 left-0 right-0 h-[86vh] md:mt-0 h-[92vh] bg-gradient-to-br from-purple-300 via-pink-300 to-orange-300 transform -skew-y-6 origin-top-left z-0">
+      <div className="absolute top-0 left-0 right-0 h-[46rem] md:mt-0 h-[92vh] bg-gradient-to-br from-purple-300 via-pink-300 to-orange-300 transform -skew-y-6 origin-top-left z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 opacity-50 animate-gradient"></div>
       </div>
 
@@ -134,13 +138,21 @@ export default function LandingPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="md:w-1/2 mt-10 md:mt-0 flex justify-center md:justify-end"
           >
-            <div className="bg-white p-8 pl-18 rounded-3xl shadow-2xl">
+            <div
+              className="bg-white p-8 rounded-3xl shadow-2xl md:mt-2"
+              style={{
+                width: isMobile ? "20rem" : "35rem",
+                marginTop: isMobile ? "50px" : "10px",
+                height: isMobile ? "14rem" : "23rem", // Set a consistent height
+                overflow: "hidden", // Ensure no overflow outside the box
+              }}
+            >
               <AnimatePresence mode="wait">
                 <motion.img
                   key={currentImageIndex}
                   src={imagePaths[currentImageIndex]}
                   alt="Gig Marketplace Illustration"
-                  className="w-full rounded-xl"
+                  className="w-full h-full object-contain" // Ensures images fit without distortion
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
