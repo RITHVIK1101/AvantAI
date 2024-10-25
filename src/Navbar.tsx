@@ -8,9 +8,9 @@ import styled from "styled-components";
 
 const NavbarContainer = styled.nav`
   position: sticky;
-  top: 16px;
+  top: 46px;
   z-index: 50;
-  max-width: 900px; /* Reduced the width */
+  max-width: 840px; /* Reduced the width */
   margin: 0 auto;
 `;
 
@@ -25,7 +25,8 @@ const NavbarContent = styled.div`
   border-radius: 50px;
 `;
 
-const Logo = styled.a` /* Wrapped the logo in an anchor tag */
+const Logo = styled.a`
+  /* Wrapped the logo in an anchor tag */
   display: flex;
   align-items: center; /* Vertically align logo */
   gap: 8px;
@@ -110,7 +111,9 @@ export default function Navbar() {
           <MenuItem href="/contact" className="block py-2">
             Contact
           </MenuItem>
-          <ConnectButton className="w-full mt-4">Join Waitlist for Lifetime Access </ConnectButton>
+          <ConnectButton className="w-full mt-4">
+            Join Waitlist for Lifetime Access{" "}
+          </ConnectButton>
         </div>
       )}
     </NavbarContainer>
