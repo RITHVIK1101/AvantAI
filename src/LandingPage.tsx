@@ -48,7 +48,7 @@ export default function LandingPage() {
   return (
     <div className="relative bg-white text-gray-800 font-sans max-w-full overflow-x-hidden">
       {/* Gradient Background */}
-      <div className="absolute top-0 left-0 right-0 h-[46rem] md:mt-0 h-[92vh] bg-gradient-to-br from-purple-300 via-pink-300 to-orange-300 transform -skew-y-6 origin-top-left z-0">
+      <div className="absolute top-0 left-0 right-0 h-[46rem] md:mt-0 h-[91vh] bg-gradient-to-br from-purple-300 via-pink-300 to-orange-300 transform -skew-y-6 origin-top-left z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 opacity-50 animate-gradient"></div>
       </div>
 
