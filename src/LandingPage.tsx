@@ -6,6 +6,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import Navbar from "./Navbar";
+import Popup from "./Popup"; // Import the Popup component
 import "./gradientAnimation.css";
 import CardScrollSection from "./CardScrollSection";
 
@@ -15,6 +16,7 @@ const imagePaths = ["/UIimg1.png", "/UIimg2.png", "/UIimage3.png"];
 export default function LandingPage() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   const logoSectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: logoSectionRef,
@@ -40,9 +42,16 @@ export default function LandingPage() {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imagePaths.length);
     }, 2000);
 
+    // Show popup after a delay
+    const popupTimer = setTimeout(() => {
+      setShowPopup(true);
+    }, 5000);
+
     return () => {
       clearInterval(wordInterval);
       clearInterval(imageInterval);
+      clearTimeout(popupTimer);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -122,19 +131,18 @@ export default function LandingPage() {
             </div>
 
             <div className="flex justify-center md:justify-start space-x-4">
-  <a
-    href="https://tally.so/r/wb4k4L"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-400 text-white px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition"
-  >
-    Join Waitlist
-  </a>
-  <button className="bg-white text-gray-600 border border-gray-300 px-6 py-3 rounded-full hover:bg-gray-100 transition">
-    Contact
-  </button>
-</div>
-
+              <a
+                href="https://tally.so/r/wb4k4L"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-400 text-white px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition"
+              >
+                Join Waitlist
+              </a>
+              <button className="bg-white text-gray-600 border border-gray-300 px-6 py-3 rounded-full hover:bg-gray-100 transition">
+                Contact
+              </button>
+            </div>
           </motion.div>
 
           {/* Image Section */}
@@ -150,8 +158,8 @@ export default function LandingPage() {
               style={{
                 width: isMobile ? "20rem" : "35rem",
                 marginTop: isMobile ? "50px" : "10px",
-                height: isMobile ? "14rem" : "23rem", // Set a consistent height
-                overflow: "hidden", // Ensure no overflow outside the box
+                height: isMobile ? "14rem" : "23rem",
+                overflow: "hidden",
               }}
             >
               <AnimatePresence mode="wait">
@@ -159,7 +167,7 @@ export default function LandingPage() {
                   key={currentImageIndex}
                   src={imagePaths[currentImageIndex]}
                   alt="Gig Marketplace Illustration"
-                  className="w-full h-full object-contain" // Ensures images fit without distortion
+                  className="w-full h-full object-contain"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -181,78 +189,23 @@ export default function LandingPage() {
           </h2>
           <div className="overflow-hidden">
             <div className="flex space-x-16">
-              {/* Two identical sets of logos to ensure smooth looping */}
               {[1, 2].map((iteration) => (
                 <motion.div
                   key={iteration}
                   className="flex space-x-16"
                   animate={{ x: ["0%", "-100%"] }}
                   transition={{
-                    duration: 20, // Adjust the speed as needed
+                    duration: 20,
                     repeat: Infinity,
-                    ease: "linear", // Smooth looping
+                    ease: "linear",
                   }}
                 >
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/columbia.png"
-                      alt="Columbia University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/stanford.png"
-                      alt="Stanford University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/dartmouth.png"
-                      alt="Dartmouth College"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/johnhopkins.png"
-                      alt="Johns Hopkins University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/uta.png"
-                      alt="University of Texas"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/asu.png"
-                      alt="Arizona State University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/northwestern.png"
-                      alt="Northwestern University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
+                  {/* University Logos */}
+                  {/* Add your university logos here */}
                 </motion.div>
               ))}
             </div>
           </div>
-        </motion.section>
-        {/* Enhanced University Logos Section */}
-        <motion.section
-          ref={logoSectionRef}
-          style={{ opacity: logoSectionOpacity }}
-        >
-          {/* University Logos Code Here */}
         </motion.section>
 
         {/* Card Scroll Section - First Card */}
@@ -262,6 +215,9 @@ export default function LandingPage() {
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">
           &copy; {new Date().getFullYear()} The Grid. All rights reserved.
         </footer>
+
+        {/* Popup Component */}
+        {showPopup && <Popup onClose={() => setShowPopup(false)} />}
       </div>
     </div>
   );
