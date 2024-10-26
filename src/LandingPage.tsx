@@ -8,7 +8,6 @@ import {
 import Navbar from "./Navbar";
 import Popup from "./Popup"; // Import the Popup component
 import "./gradientAnimation.css";
-import CardScrollSection from "./CardScrollSection";
 
 const gradientWords = ["Everything", "Tasks", "Assignments"];
 const imagePaths = ["/UIimg1.png", "/UIimg2.png", "/UIimage3.png"];
@@ -207,9 +206,6 @@ export default function LandingPage() {
             </div>
           </div>
         </motion.section>
-
-        {/* Card Scroll Section - First Card */}
-        <CardScrollSection />
 
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">
