@@ -7,6 +7,7 @@ import {
 } from "framer-motion";
 import Navbar from "./Navbar";
 import "./gradientAnimation.css";
+import CardScrollSection from "./CardScrollSection";
 
 const gradientWords = ["Everything", "Tasks", "Assignments"];
 const imagePaths = ["/UIimg1.png", "/UIimg2.png", "/UIimage3.png"];
@@ -57,7 +58,7 @@ export default function LandingPage() {
         <Navbar />
 
         {/* Main Content */}
-        <main className="container mx-auto px-6 pt--72 pb-28 flex flex-col md:flex-row items-center justify-center min-h-screen">
+        <main className="container mx-auto px-6 pt--72 pb-28 flex flex-col md:flex-row pt-14 items-center justify-center min-h-screen">
           {/* Text Section */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -240,6 +241,16 @@ export default function LandingPage() {
             </div>
           </div>
         </motion.section>
+        {/* Enhanced University Logos Section */}
+        <motion.section
+          ref={logoSectionRef}
+          style={{ opacity: logoSectionOpacity }}
+        >
+          {/* University Logos Code Here */}
+        </motion.section>
+
+        {/* Card Scroll Section - First Card */}
+        <CardScrollSection />
 
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">
