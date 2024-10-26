@@ -206,6 +206,16 @@ export default function LandingPage() {
             </div>
           </div>
         </motion.section>
+<<<<<<< HEAD
+=======
+        {/* Enhanced University Logos Section */}
+        <motion.section
+          ref={logoSectionRef}
+          style={{ opacity: logoSectionOpacity }}
+        >
+          {/* University Logos Code Here */}
+        </motion.section>
+>>>>>>> master
 
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">
