@@ -7,7 +7,6 @@ import {
 } from "framer-motion";
 import Navbar from "./Navbar";
 import "./gradientAnimation.css";
-import CardScrollSection from "./CardScrollSection";
 
 const gradientWords = ["Everything", "Tasks", "Assignments"];
 const imagePaths = ["/UIimg1.png", "/UIimg2.png", "/UIimage3.png"];
@@ -122,19 +121,18 @@ export default function LandingPage() {
             </div>
 
             <div className="flex justify-center md:justify-start space-x-4">
-  <a
-    href="https://tally.so/r/wb4k4L"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-400 text-white px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition"
-  >
-    Join Waitlist
-  </a>
-  <button className="bg-white text-gray-600 border border-gray-300 px-6 py-3 rounded-full hover:bg-gray-100 transition">
-    Contact
-  </button>
-</div>
-
+              <a
+                href="https://tally.so/r/wb4k4L"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-400 text-white px-6 py-3 rounded-full shadow-lg hover:opacity-90 transition"
+              >
+                Join Waitlist
+              </a>
+              <button className="bg-white text-gray-600 border border-gray-300 px-6 py-3 rounded-full hover:bg-gray-100 transition">
+                Contact
+              </button>
+            </div>
           </motion.div>
 
           {/* Image Section */}
@@ -254,9 +252,6 @@ export default function LandingPage() {
         >
           {/* University Logos Code Here */}
         </motion.section>
-
-        {/* Card Scroll Section - First Card */}
-        <CardScrollSection />
 
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">
