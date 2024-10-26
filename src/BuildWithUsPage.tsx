@@ -152,7 +152,7 @@ export default function BuildWithUsPage() {
         </JobListingContainer>
 
         <InstructionText>
-          Tap "Apply Now" to reach out and join us!
+          Tap "Apply Now" to reach out and join us.
         </InstructionText>
       </BuildContainer>
     </>

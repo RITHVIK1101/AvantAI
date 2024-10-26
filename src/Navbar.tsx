@@ -98,9 +98,14 @@ export default function Navbar() {
           <MenuItem href="/contact">Contact</MenuItem>
           <MenuItem href="/build-with-us">Build with Us</MenuItem> {/* New Link */}
         </MenuItems>
-        <ConnectButton className="hidden md:inline-block">
-          Join Waitlist
-        </ConnectButton>
+        <a
+          href="https://tally.so/r/wb4k4L"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-block"
+        >
+          <ConnectButton>Join Waitlist</ConnectButton>
+        </a>
         <MobileMenuButton onClick={() => setIsOpen(!isOpen)}>
           <Menu className="h-6 w-6 text-gray-800" />
         </MobileMenuButton>
@@ -112,9 +117,14 @@ export default function Navbar() {
           <a href="/about" className="block py-2 px-4">About</a>
           <a href="/contact" className="block py-2 px-4">Contact</a>
           <a href="/build-with-us" className="block py-2 px-4">Build with Us</a>
-          <button className="w-full mt-4 bg-black text-white py-2 rounded-lg">
+          <a
+            href="https://tally.so/r/wb4k4L"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full mt-4 bg-black text-white py-2 rounded-lg block text-center"
+          >
             Join Waitlist for Lifetime Access
-          </button>
+          </a>
         </div>
       )}
     </NavbarContainer>
