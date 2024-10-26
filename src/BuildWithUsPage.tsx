@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import { motion } from "framer-motion";
@@ -8,7 +7,7 @@ const BuildContainer = styled(motion.div)`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #ffffff, #f0f4f8);
+  background: linear-gradient(135deg, #a8edea, #fed6e3);
   padding: 60px 20px;
   margin-top: -60px;
 `;
@@ -55,14 +54,14 @@ const RoleHeader = styled.div`
 `;
 
 const RoleTitle = styled.h2`
-  color: #1e40af;
+  color: #444;
   font-size: 1.25rem;
   font-weight: 600;
   margin: 0;
 `;
 
 const ApplyButton = styled.a`
-  background-color: #1e40af;
+  background-color: black;
   color: #ffffff;
   padding: 8px 16px;
   border-radius: 6px;
@@ -96,17 +95,20 @@ export default function BuildWithUsPage() {
   const roles = [
     {
       title: "Designer",
-      description: "Looking for creative minds to refine our UI with modern aesthetics.",
+      description:
+        "Looking for creative minds to refine our UI with modern aesthetics.",
       email: "mailto:dhruvreddy05@gmail.com",
     },
     {
       title: "Developer",
-      description: "Seeking developers to bring our platform to life with cutting-edge tech.",
+      description:
+        "Seeking developers to bring our platform to life with cutting-edge tech.",
       email: "mailto:dhruvreddy05@gmail.com",
     },
     {
       title: "Beta Tester",
-      description: "We need early adopters to test and improve the user experience.",
+      description:
+        "We need early adopters to test and improve the user experience.",
       email: "mailto:dhruvreddy05@gmail.com",
     },
     {
