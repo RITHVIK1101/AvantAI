@@ -2,38 +2,45 @@
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   max-height: 80vh;
-
-  /* Add space between the university section and cards section */
-  margin-top: 5rem; /* Adjust the value as needed */
-
-  /* Optional: Add padding to ensure smooth layout */
+  margin-top: 5rem;
   padding-top: 3rem;
+  scroll-behavior: smooth;
+
+  background: linear-gradient(135deg, rgba(168, 237, 234, 0), rgba(254, 214, 227, 0)); /* Start transparent */
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    margin-top: 5rem;
+    padding-top: 1rem;
+    max-height: 70vh;
+  }
 }
 
 .stacking-slide {
   scroll-snap-align: start;
-  height: 70vh; /* Ensure all cards, including the last one, are the same height */
+  height: 70vh; 
   width: 80%;
   position: sticky;
   margin-left: 10rem;
   margin-bottom: 2rem;
-
-  /* Styling the card */
-  border-radius: 3rem;
+  border-radius: 2rem;
   border: 0.5px solid black;
   top: 0;
-
-  /* Remove the special height for the last child */
-  /* padding for uniformity across cards */
   padding: 3rem;
   background-color: white;
 
-  @for $i from 0 through 10 {
-    &:nth-child(#{$i}) {
-      background-color: white;
-    }
+  /* Adjustments for mobile */
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 1rem; /* Reduce space between cards */
+    height: 60vh; /* Ensure cards fit the screen better */
+    padding: 2rem;
   }
 }
+
+
+
 
 /* Ensure all elements use consistent box-sizing */
 *, *:before, *:after {

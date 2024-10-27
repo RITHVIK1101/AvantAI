@@ -17,18 +17,20 @@ export default function LandingPage() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
+  const [cardsActive, setCardsActive] = useState(false); // Track if cards section is active
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Track window size
+
   const logoSectionRef = useRef<HTMLElement>(null);
+  const cardsSectionRef = useRef<HTMLDivElement | null>(null);
+
   const { scrollYProgress } = useScroll({
     target: logoSectionRef,
     offset: ["start end", "end start"],
   });
-  const [cardsActive, setCardsActive] = useState(false); // Track if cards section is active
-  const cardsSectionRef = useRef(null);
 
   const logoSectionOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
-  const getColorClass = () => "text-white drop-shadow-lg";
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const getColorClass = () => "text-white drop-shadow-lg"; // Define the missing function
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
@@ -44,21 +46,18 @@ export default function LandingPage() {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % imagePaths.length);
     }, 2000);
 
-    // Show popup after a delay
     const popupTimer = setTimeout(() => {
       setShowPopup(true);
     }, 5000);
 
-    // Save the ref value in a local variable to avoid ESLint warning
-    const cardsSectionElement = cardsSectionRef.current;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setCardsActive(entry.isIntersecting); // Activate cards if intersecting
+        setCardsActive(entry.isIntersecting);
       },
-      { threshold: 0.5 } // Trigger when 50% of the cards section is visible
+      { threshold: 0.5 }
     );
 
+    const cardsSectionElement = cardsSectionRef.current;
     if (cardsSectionElement) {
       observer.observe(cardsSectionElement);
     }
@@ -71,6 +70,35 @@ export default function LandingPage() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const handleWheel: React.WheelEventHandler<HTMLDivElement> = (e) => {
+    const element = cardsSectionRef.current;
+    if (!element) return;
+
+    const atTop = element.scrollTop === 0;
+    const atBottom =
+      element.scrollHeight - element.scrollTop === element.clientHeight;
+
+    if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) {
+      e.preventDefault(); // Prevent scroll lock within cards
+      window.scrollBy(0, e.deltaY); // Pass scroll event to the page
+    }
+  };
+  const handleTouchMove: React.TouchEventHandler<HTMLDivElement> = (e) => {
+    const element = cardsSectionRef.current;
+    if (!element) return;
+
+    const atTop = element.scrollTop === 0;
+    const atBottom =
+      element.scrollHeight - element.scrollTop === element.clientHeight;
+
+    const touch = e.changedTouches[0]; // Get the touch event
+    const deltaY = touch.clientY - touch.screenY; // Calculate vertical movement
+
+    if ((atTop && deltaY < 0) || (atBottom && deltaY > 0)) {
+      e.preventDefault(); // Prevent scroll lock within cards
+      window.scrollBy(0, deltaY); // Pass scroll to parent
+    }
+  };
 
   return (
     <div className="relative bg-white text-gray-800 font-sans max-w-full overflow-x-hidden">
@@ -275,6 +303,8 @@ export default function LandingPage() {
         <div
           ref={cardsSectionRef}
           className={`vertical-scroll-snap ${cardsActive ? "active" : ""}`}
+          onWheel={handleWheel} // Desktop scroll
+          onTouchMove={handleTouchMove} // Mobile scroll
         >
           <section className="stacking-slide">
             <h2>Section 1</h2>
@@ -292,6 +322,7 @@ export default function LandingPage() {
             <h2>Section 5</h2>
           </section>
         </div>
+
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">
           &copy; {new Date().getFullYear()} The Grid. All rights reserved.
