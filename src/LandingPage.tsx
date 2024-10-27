@@ -48,6 +48,10 @@ export default function LandingPage() {
     const popupTimer = setTimeout(() => {
       setShowPopup(true);
     }, 5000);
+
+    // Save the ref value in a local variable to avoid ESLint warning
+    const cardsSectionElement = cardsSectionRef.current;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setCardsActive(entry.isIntersecting); // Activate cards if intersecting
@@ -55,15 +59,15 @@ export default function LandingPage() {
       { threshold: 0.5 } // Trigger when 50% of the cards section is visible
     );
 
-    if (cardsSectionRef.current) {
-      observer.observe(cardsSectionRef.current);
+    if (cardsSectionElement) {
+      observer.observe(cardsSectionElement);
     }
 
     return () => {
       clearInterval(wordInterval);
       clearInterval(imageInterval);
       clearTimeout(popupTimer);
-      if (cardsSectionRef.current) observer.unobserve(cardsSectionRef.current);
+      if (cardsSectionElement) observer.unobserve(cardsSectionElement);
       window.removeEventListener("resize", handleResize);
     };
   }, []);

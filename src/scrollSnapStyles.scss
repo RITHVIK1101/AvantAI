@@ -12,7 +12,7 @@
 
 .stacking-slide {
   scroll-snap-align: start;
-  height: 70vh;
+  height: 70vh; /* Ensure all cards, including the last one, are the same height */
   width: 80%;
   position: sticky;
   margin-left: 10rem;
@@ -23,10 +23,8 @@
   border: 0.5px solid black;
   top: 0;
 
-  &:nth-last-child(1) {
-    height: 100vh; /* Ensure the last slide takes full height */
-  }
-
+  /* Remove the special height for the last child */
+  /* padding for uniformity across cards */
   padding: 3rem;
   background-color: white;
 
