@@ -4,6 +4,7 @@ import {
   useScroll,
   useTransform,
   AnimatePresence,
+  useInView,
 } from "framer-motion";
 import Navbar from "./Navbar";
 import Popup from "./Popup"; // Import the Popup component
@@ -17,11 +18,30 @@ export default function LandingPage() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
-  const [cardsActive, setCardsActive] = useState(false); // Track if cards section is active
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Track window size
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const dividerRef = useRef(null);
+  const isInView = useInView(dividerRef, { once: true, amount: 0.5 });
+
+  const dividerVariants = {
+    hidden: {
+      width: "0%",
+      opacity: 0,
+      x: "-50%",
+      left: "50%",
+    },
+    visible: {
+      width: "50%",
+      opacity: 0.6,
+      x: "-50%",
+      left: "50%",
+      transition: {
+        duration: 1.2,
+        ease: "easeInOut",
+      },
+    },
+  };
 
   const logoSectionRef = useRef<HTMLElement>(null);
-  const cardsSectionRef = useRef<HTMLDivElement | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: logoSectionRef,
@@ -50,55 +70,13 @@ export default function LandingPage() {
       setShowPopup(true);
     }, 5000);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setCardsActive(entry.isIntersecting);
-      },
-      { threshold: 0.5 }
-    );
-
-    const cardsSectionElement = cardsSectionRef.current;
-    if (cardsSectionElement) {
-      observer.observe(cardsSectionElement);
-    }
-
     return () => {
       clearInterval(wordInterval);
       clearInterval(imageInterval);
       clearTimeout(popupTimer);
-      if (cardsSectionElement) observer.unobserve(cardsSectionElement);
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const handleWheel: React.WheelEventHandler<HTMLDivElement> = (e) => {
-    const element = cardsSectionRef.current;
-    if (!element) return;
-
-    const atTop = element.scrollTop === 0;
-    const atBottom =
-      element.scrollHeight - element.scrollTop === element.clientHeight;
-
-    if ((atTop && e.deltaY < 0) || (atBottom && e.deltaY > 0)) {
-      e.preventDefault(); // Prevent scroll lock within cards
-      window.scrollBy(0, e.deltaY); // Pass scroll event to the page
-    }
-  };
-  const handleTouchMove: React.TouchEventHandler<HTMLDivElement> = (e) => {
-    const element = cardsSectionRef.current;
-    if (!element) return;
-
-    const atTop = element.scrollTop === 0;
-    const atBottom =
-      element.scrollHeight - element.scrollTop === element.clientHeight;
-
-    const touch = e.changedTouches[0]; // Get the touch event
-    const deltaY = touch.clientY - touch.screenY; // Calculate vertical movement
-
-    if ((atTop && deltaY < 0) || (atBottom && deltaY > 0)) {
-      e.preventDefault(); // Prevent scroll lock within cards
-      window.scrollBy(0, deltaY); // Pass scroll to parent
-    }
-  };
 
   return (
     <div className="relative bg-white text-gray-800 font-sans max-w-full overflow-x-hidden">
@@ -179,7 +157,7 @@ export default function LandingPage() {
                 Join Waitlist
               </a>
               <button className="bg-white text-gray-600 border border-gray-300 px-6 py-3 rounded-full hover:bg-gray-100 transition">
-                Contact
+                <a href="mailto:rithviksaba@gmail.com">Contact</a>
               </button>
             </div>
           </motion.div>
@@ -217,6 +195,7 @@ export default function LandingPage() {
           </motion.div>
         </main>
         {/* Enhanced University Logos Section */}
+        {/* Enhanced University Logos Section */}
         <motion.section
           ref={logoSectionRef}
           style={{ opacity: logoSectionOpacity }}
@@ -227,16 +206,15 @@ export default function LandingPage() {
           </h2>
           <div className="overflow-hidden">
             <div className="flex space-x-8 md:space-x-16">
-              {/* Two identical sets of logos to ensure smooth looping */}
               {[1, 2].map((iteration) => (
                 <motion.div
                   key={iteration}
                   className="flex space-x-8 md:space-x-16"
                   animate={{ x: ["0%", "-100%"] }}
                   transition={{
-                    duration: 20, // Adjust the speed as needed
+                    duration: 20,
                     repeat: Infinity,
-                    ease: "linear", // Smooth looping
+                    ease: "linear",
                   }}
                 >
                   {[
@@ -250,7 +228,7 @@ export default function LandingPage() {
                   ].map((src, index) => (
                     <div
                       key={index}
-                      className={`w-20 h-12 md:w-40 md:h-24 flex items-center justify-center grayscale`}
+                      className="w-20 h-12 md:w-40 md:h-24 flex items-center justify-center grayscale"
                     >
                       <img
                         src={src}
@@ -265,65 +243,64 @@ export default function LandingPage() {
           </div>
         </motion.section>
 
-        {/* Cards Section */}
-        <div
-          ref={cardsSectionRef}
-          className={`vertical-scroll-snap ${cardsActive ? "active" : ""}`}
-          onWheel={handleWheel} // Desktop scroll
-          onTouchMove={handleTouchMove} // Mobile scroll
-        >
-          <section className="stacking-slide">
-            <div className="card-content">
-              <span className="icon">📚</span>
-              <h2>Buy, Sell, and Rent Items</h2>
-              <p>
-                Find textbooks, furniture, and gadgets all on one platform.
-                Connect with fellow students to buy, sell, or rent items with
-                ease.
-              </p>
-            </div>
-          </section>
-          <section className="stacking-slide">
-            <div className="card-content">
-              <span className="icon">⚙️</span>
-              <h2>Get Help with Tasks</h2>
-              <p>
-                Need help with assignments or errands? Pay others to assist you,
-                from quick campus deliveries to academic help.
-              </p>
-            </div>
-          </section>
-          <section className="stacking-slide">
-            <div className="card-content">
-              <span className="icon">💬</span>
-              <h2>Community Engagement</h2>
-              <p>
-                Join student-led communities for discussions, learning, and
-                campus updates. The Grid keeps you connected.
-              </p>
-            </div>
-          </section>
-          <section className="stacking-slide">
-            <div className="card-content">
-              <span className="icon">📈</span>
-              <h2>Save Time and Money</h2>
-              <p>
-                Discover the best deals from fellow students and get your tasks
-                done efficiently. Time saved is time earned.
-              </p>
-            </div>
-          </section>
-          <section className="stacking-slide">
-            <div className="card-content">
-              <span className="icon">🎉</span>
-              <h2>Unlock Campus Life</h2>
-              <p>
-                Engage with your campus like never before, with easy access to
-                peer-to-peer services and events.
-              </p>
-            </div>
-          </section>
+        <div className="relative h-px mt-20">
+          <motion.div
+            className="absolute border-t border-gray-500"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={dividerVariants}
+          />
         </div>
+
+        {/* How It Works Section */}
+        <section className="py-16 px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="max-w-5xl mx-auto text-center"
+          >
+            <div
+              className="inline-block md:text-[1.7rem] text-[1.3rem] leading-tight mx-2 md:mx-48"
+              style={{ lineHeight: "1.3", fontFamily: "Poppins, sans-serif" }}
+            >
+              {/* Question */}
+              <motion.span
+                className="text-black-800"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                How The Grid Works?{" "}
+              </motion.span>
+
+              {/* Answer for Desktop */}
+              <motion.span
+                className="hidden md:inline text-gray-400"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                We connect students for easy buying, selling, renting, and job
+                postings, creating a vibrant campus marketplace for everyone’s
+                needs.
+              </motion.span>
+
+              {/* Answer for Mobile */}
+              <motion.span
+                className="inline md:hidden text-gray-400"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
+                We connect students to buy, sell, rent, and post jobs, building
+                a vibrant campus marketplace for all.
+              </motion.span>
+            </div>
+          </motion.div>
+        </section>
 
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">

@@ -1,0 +1,48 @@
+.vertical-scroll-snap {
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  max-height: 80vh;
+  margin-top: 5rem;
+  padding-top: 3rem;
+  scroll-behavior: smooth;
+
+  background: linear-gradient(135deg, rgba(168, 237, 234, 0), rgba(254, 214, 227, 0)); /* Start transparent */
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    margin-top: 5rem;
+    padding-top: 1rem;
+    max-height: 70vh;
+  }
+}
+
+.stacking-slide {
+  scroll-snap-align: start;
+  height: 70vh; 
+  width: 80%;
+  position: sticky;
+  margin-left: 10rem;
+  margin-bottom: 2rem;
+  border-radius: 2rem;
+  border: 0.5px solid black;
+  top: 0;
+  padding: 3rem;
+  background-color: white;
+
+  /* Adjustments for mobile */
+  @media (max-width: 768px) {
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 1rem; /* Reduce space between cards */
+    height: 60vh; /* Ensure cards fit the screen better */
+    padding: 2rem;
+  }
+}
+
+
+
+
+/* Ensure all elements use consistent box-sizing */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
