@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type PopupProps = {
@@ -6,6 +6,15 @@ type PopupProps = {
 };
 
 export default function Popup({ onClose }: PopupProps) {
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
+
+  // Update the state when the window is resized
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth > 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const closeOnEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -33,11 +42,13 @@ export default function Popup({ onClose }: PopupProps) {
       >
         <motion.div
           style={{
-            maxWidth: "26rem",
+            maxWidth: isDesktop ? "29rem" : "22rem", // Adjust size based on screen width
             backgroundColor: "#F9FAFB",
-            borderRadius: "0.75rem",
-            boxShadow: "0px 12px 36px rgba(0, 0, 0, 0.15)",
-            padding: "2rem",
+            borderRadius: "2rem",
+            boxShadow: isDesktop
+              ? "0px 12px 36px rgba(0, 0, 0, 0.2)"
+              : "0px 8px 24px rgba(0, 0, 0, 0.1)", // Subtle shadow difference for smaller screens
+            padding: isDesktop ? "2rem" : "1.5rem", // Slight padding change for smaller screens
             position: "relative",
             textAlign: "center",
             border: "1px solid #E5E7EB",
@@ -48,7 +59,6 @@ export default function Popup({ onClose }: PopupProps) {
           exit={{ scale: 0.9, opacity: 0 }}
           transition={{ duration: 0.25 }}
         >
-          {/* Thin rotating blue border */}
           <div
             style={{
               position: "absolute",
@@ -57,7 +67,7 @@ export default function Popup({ onClose }: PopupProps) {
               right: "-2px",
               bottom: "-2px",
               borderRadius: "0.75rem",
-              border: "1px solid rgba(59, 130, 246, 0.6)", // Thin blue border
+              border: "1px solid rgba(59, 130, 246, 0.6)",
               animation: "rotate-border 5s linear infinite",
               pointerEvents: "none",
             }}
@@ -78,6 +88,7 @@ export default function Popup({ onClose }: PopupProps) {
           >
             &times;
           </button>
+
           <h2
             style={{
               fontSize: "1.75rem",
@@ -89,6 +100,7 @@ export default function Popup({ onClose }: PopupProps) {
           >
             Get Exclusive Access
           </h2>
+
           <p
             style={{
               color: "#4B5563",
@@ -98,9 +110,10 @@ export default function Popup({ onClose }: PopupProps) {
             }}
           >
             Be part of an exclusive group with permanent access to The Grid's
-            top features. Join the waitlist today for early access, premium
-            discounts, and ongoing member-only perks.
+            top features. Join the waitlist today for early access & member-only
+            perks.
           </p>
+
           <div>
             <a
               href="https://tally.so/r/wb4k4L"
@@ -108,10 +121,10 @@ export default function Popup({ onClose }: PopupProps) {
               rel="noopener noreferrer"
               style={{
                 display: "inline-block",
-                backgroundColor: "#1F2937",
+                backgroundColor: "black",
                 color: "white",
                 padding: "0.75rem 1.5rem",
-                borderRadius: "8px",
+                borderRadius: "50px",
                 textDecoration: "none",
                 fontWeight: "500",
                 fontFamily: "'Poppins', sans-serif",
@@ -121,7 +134,7 @@ export default function Popup({ onClose }: PopupProps) {
                 (e.currentTarget.style.backgroundColor = "#111827")
               }
               onMouseLeave={(e) =>
-                (e.currentTarget.style.backgroundColor = "#1F2937")
+                (e.currentTarget.style.backgroundColor = "black")
               }
             >
               Join Waitlist
@@ -130,7 +143,6 @@ export default function Popup({ onClose }: PopupProps) {
         </motion.div>
       </motion.div>
 
-      {/* Keyframes for rotating blue border animation */}
       <style>{`
         @keyframes rotate-border {
           0% { transform: rotate(0deg); }
