@@ -7,6 +7,7 @@ import {
 } from "framer-motion";
 import Navbar from "./Navbar";
 import Popup from "./Popup"; // Import the Popup component
+import GridFeatures from "./GridFeatures";
 import "./gradientAnimation.css";
 import "./scrollSnapStyles.scss";
 
@@ -248,83 +249,87 @@ export default function LandingPage() {
           />
         </div>
 
-        {/* How It Works Section */}
-        <section className="py-16 px-4">
-          {/* Text Container with Bounce Effect */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 50 }} // Start smaller and lower
-            whileInView={{ opacity: 1, scale: 1, y: 0 }} // Trigger on scroll
-            transition={{
-              duration: 1.2, // Sync with the line animation
-              type: "spring", // Adds bounce effect
-              stiffness: 80,
-              damping: 20,
-            }}
-            viewport={{ once: true, amount: 0.5 }}
-            onAnimationComplete={() => {
-              // Trigger the second divider animation after this completes
-              const secondLine = document.querySelector("#second-divider");
-              secondLine?.classList.add("animate-line");
-            }}
-            className="max-w-5xl mx-auto text-center"
-          >
-            <div
-              className="inline-block md:text-[1.7rem] text-[1.3rem] leading-tight mx-2 md:mx-48"
-              style={{ lineHeight: "1.3", fontFamily: "Poppins, sans-serif" }}
-            >
-              {/* Question and Answer Grouped Together */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 1.2,
-                  type: "spring",
-                  stiffness: 80,
-                  damping: 20,
-                }}
-                viewport={{ once: true, amount: 0.5 }}
-              >
-                {/* Question */}
-                <span className="text-black-800">How The Grid Works? </span>
+{/* How It Works Section */}
+<section className="py-16 px-4">
+  {/* Text Container with Bounce Effect */}
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9, y: 50 }} // Start smaller and lower
+    whileInView={{ opacity: 1, scale: 1, y: 0 }} // Trigger on scroll
+    transition={{
+      duration: 1.2, // Sync with the line animation
+      type: "spring", // Adds bounce effect
+      stiffness: 80,
+      damping: 20,
+    }}
+    viewport={{ once: true, amount: 0.5 }}
+    onAnimationComplete={() => {
+      // Trigger the second divider animation after this completes
+      const secondLine = document.querySelector("#second-divider");
+      secondLine?.classList.add("animate-line");
+    }}
+    className="max-w-5xl mx-auto text-center"
+  >
+    <div
+      className="inline-block md:text-[1.7rem] text-[1.3rem] leading-tight mx-2 md:mx-48"
+      style={{ lineHeight: "1.3", fontFamily: "Poppins, sans-serif" }}
+    >
+      {/* Question and Answer Grouped Together */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 1.2,
+          type: "spring",
+          stiffness: 80,
+          damping: 20,
+        }}
+        viewport={{ once: true, amount: 0.5 }}
+      >
+        {/* Question */}
+        <span className="text-black-800">How The Grid Works? </span>
 
-                {/* Answer for Desktop */}
-                <span className="hidden md:inline text-gray-400">
-                  We connect students for easy buying, selling, renting, and job
-                  postings, creating a vibrant campus marketplace for everyone’s
-                  needs.
-                </span>
+        {/* Answer for Desktop */}
+        <span className="hidden md:inline text-gray-400">
+          We connect students for easy buying, selling, renting, and job
+          postings, creating a vibrant campus marketplace for everyone’s needs.
+        </span>
 
-                {/* Answer for Mobile */}
-                <span className="inline md:hidden text-gray-400">
-                  We connect students to buy, sell, rent, and post jobs,
-                  building a vibrant campus marketplace for all.
-                </span>
-              </motion.div>
-            </div>
-          </motion.div>
-        </section>
+        {/* Answer for Mobile */}
+        <span className="inline md:hidden text-gray-400">
+          We connect students to buy, sell, rent, and post jobs,
+          building a vibrant campus marketplace for all.
+        </span>
+      </motion.div>
+    </div>
+  </motion.div>
+</section>
 
-        {/* Second Divider Line */}
-        <div className="relative mt-[1.7rem] ml-[30rem]">
-          <motion.div
-            id="second-divider"
-            className="absolute border-t border-gray-500 opacity-0" // Start hidden
-            initial={{ width: "0%" }}
-            animate={{ width: "50%", opacity: 0.6 }}
-            transition={{
-              duration: 1.2,
-              ease: "easeInOut",
-              delay: 1.2, // Delays to sync with the previous animation
-            }}
-          />
-        </div>
+{/* Second Divider Line */}
+<div className="relative mt-[1.7rem] ml-[30rem]">
+  <motion.div
+    id="second-divider"
+    className="absolute border-t border-gray-500 opacity-0" // Start hidden
+    initial={{ width: "0%" }}
+    animate={{ width: "50%", opacity: 0.6 }}
+    transition={{
+      duration: 1.2,
+      ease: "easeInOut",
+      delay: 1.2, // Delays to sync with the previous animation
+    }}
+  />
+</div>
 
-        {/* Footer */}
-        <footer className="py-6 text-center text-sm text-gray-500 bg-white">
-          &copy; {new Date().getFullYear()} The Grid. All rights reserved.
-        </footer>
-        {/* Popup Component */}
-        {showPopup && <Popup onClose={() => setShowPopup(false)} />}
+{/* GridFeatures Section */}
+<GridFeatures /> {/* New addition of GridFeatures component */}
+
+{/* Footer */}
+<footer className="py-6 text-center text-sm text-gray-500 bg-white">
+  &copy; {new Date().getFullYear()} The Grid. All rights reserved.
+</footer>
+
+{/* Popup Component */}
+{showPopup && <Popup onClose={() => setShowPopup(false)} />}
+
       </div>
     </div>
   );
