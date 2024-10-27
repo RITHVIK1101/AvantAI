@@ -8,9 +8,10 @@ import {
 import Navbar from "./Navbar";
 import Popup from "./Popup"; // Import the Popup component
 import "./gradientAnimation.css";
+import "./scrollSnapStyles.scss";
 
 const gradientWords = ["Everything", "Tasks", "Assignments"];
-const imagePaths = ["/UIimg1.png", "/UIimg2.png", "/UIimage3.png"];
+const imagePaths = ["/UIimg1.png", "/UIimg2.png", "/UIimg3.png"];
 
 export default function LandingPage() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -21,6 +22,8 @@ export default function LandingPage() {
     target: logoSectionRef,
     offset: ["start end", "end start"],
   });
+  const [cardsActive, setCardsActive] = useState(false); // Track if cards section is active
+  const cardsSectionRef = useRef(null);
 
   const logoSectionOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
@@ -45,11 +48,22 @@ export default function LandingPage() {
     const popupTimer = setTimeout(() => {
       setShowPopup(true);
     }, 5000);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setCardsActive(entry.isIntersecting); // Activate cards if intersecting
+      },
+      { threshold: 0.5 } // Trigger when 50% of the cards section is visible
+    );
+
+    if (cardsSectionRef.current) {
+      observer.observe(cardsSectionRef.current);
+    }
 
     return () => {
       clearInterval(wordInterval);
       clearInterval(imageInterval);
       clearTimeout(popupTimer);
+      if (cardsSectionRef.current) observer.unobserve(cardsSectionRef.current);
       window.removeEventListener("resize", handleResize);
     };
   }, []);
@@ -64,16 +78,15 @@ export default function LandingPage() {
       {/* Content Container */}
       <div className="relative z-6">
         <Navbar />
-
         {/* Main Content */}
-        <main className="container mx-auto px-6 pt--72 pb-28 flex flex-col md:flex-row pt-14 items-center justify-center min-h-screen">
+        <main className="container mx-auto px-6 pt--72 pb-28 flex flex-col md:flex-row pt-14 items-start md:items-center min-h-screen">
           {/* Text Section */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="md:w-1/2 text-center md:text-left md:px-12"
+            className="md:w-1/2 text-left md:px-12"
           >
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -87,12 +100,8 @@ export default function LandingPage() {
             </motion.div>
 
             <h1
-              className="text-3xl md:text-5xl font-semibold mb-6 text-gray-800"
-              style={{
-                lineHeight: "1.4",
-                marginBottom: "2rem",
-                fontFamily: "Poppins, sans-serif",
-              }}
+              className="text-4xl md:text-6xl font-medium mb-4 text-black"
+              style={{ lineHeight: "1.2", fontFamily: "Poppins, sans-serif" }}
             >
               The Campus Marketplace
               <br />
@@ -112,13 +121,12 @@ export default function LandingPage() {
               </AnimatePresence>
             </h1>
 
-            <p className="text-base mb-6 text-gray-600 font-bold">
-              The first marketplace to buy, sell, rent, and hire for gigs and
-              campus tasks. From grabbing boba to getting assignment help,
-              connect with peers and get things done together.
+            <p className="text-sm md:text-base mb-6 text-gray-600 font-medium">
+              A campus marketplace to buy, sell, and rent equipment or hire help
+              for tasks—connect with peers and make campus life easier.
             </p>
 
-            <div className="flex items-center justify-center md:justify-start mb-6">
+            <div className="flex items-center justify-start mb-6">
               <motion.span
                 className="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"
                 animate={{ opacity: [1, 0, 1] }}
@@ -129,7 +137,7 @@ export default function LandingPage() {
               </span>
             </div>
 
-            <div className="flex justify-center md:justify-start space-x-4">
+            <div className="flex justify-start space-x-4">
               <a
                 href="https://tally.so/r/wb4k4L"
                 target="_blank"
@@ -167,9 +175,9 @@ export default function LandingPage() {
                   src={imagePaths[currentImageIndex]}
                   alt="Gig Marketplace Illustration"
                   className="w-full h-full object-contain"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  initial={{ x: 50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: -50, opacity: 0 }}
                   transition={{ duration: 0.5 }}
                 />
               </AnimatePresence>
@@ -183,39 +191,70 @@ export default function LandingPage() {
           style={{ opacity: logoSectionOpacity }}
           className="py--6 text-center"
         >
-          <h2 className="text-2xl font-semibold text-gray-800 mb-8">
-            Trusted by students at top institutions
+          <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-8">
+            Building communities at institutions nationwide
           </h2>
           <div className="overflow-hidden">
-            <div className="flex space-x-16">
+            <div className="flex space-x-8 md:space-x-16">
+              {/* Two identical sets of logos to ensure smooth looping */}
               {[1, 2].map((iteration) => (
                 <motion.div
                   key={iteration}
-                  className="flex space-x-16"
+                  className="flex space-x-8 md:space-x-16"
                   animate={{ x: ["0%", "-100%"] }}
                   transition={{
-                    duration: 20,
+                    duration: 20, // Adjust the speed as needed
                     repeat: Infinity,
-                    ease: "linear",
+                    ease: "linear", // Smooth looping
                   }}
                 >
-                  {/* University Logos */}
-                  {/* Add your university logos here */}
+                  {[
+                    "/columbia.png",
+                    "/stanford.png",
+                    "/dartmouth.png",
+                    "/johnhopkins.png",
+                    "/uta.png",
+                    "/asu.png",
+                    "/northwestern.png",
+                  ].map((src, index) => (
+                    <div
+                      key={index}
+                      className={`w-20 h-12 md:w-40 md:h-24 flex items-center justify-center grayscale`}
+                    >
+                      <img
+                        src={src}
+                        alt="University logo"
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                  ))}
                 </motion.div>
               ))}
             </div>
           </div>
         </motion.section>
-<<<<<<< HEAD
-=======
-        {/* Enhanced University Logos Section */}
-        <motion.section
-          ref={logoSectionRef}
-          style={{ opacity: logoSectionOpacity }}
+
+        {/* Cards Section */}
+        <div
+          ref={cardsSectionRef}
+          className={`vertical-scroll-snap ${cardsActive ? "active" : ""}`}
         >
-          {/* University Logos Code Here */}
-        </motion.section>
->>>>>>> master
+          <section className="stacking-slide">
+            <h2>Section 1</h2>
+          </section>
+          <section className="stacking-slide">
+            <h2>Section 2</h2>
+          </section>
+          <section className="stacking-slide">
+            <h2>Section 3</h2>
+          </section>
+          <section className="stacking-slide">
+            <h2>Section 4</h2>
+          </section>
+          <section className="stacking-slide">
+            <h2>Section 5</h2>
+          </section>
+        </div>
 
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">
