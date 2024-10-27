@@ -18,24 +18,6 @@ export default function LandingPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const dividerVariants = {
-    hidden: {
-      width: "0%",
-      opacity: 0,
-      x: "-50%",
-      left: "50%",
-    },
-    visible: {
-      width: "50%",
-      opacity: 0.6,
-      x: "-50%",
-      left: "50%",
-      transition: {
-        duration: 1.2, // Keep the same duration for line animation
-        ease: "easeInOut",
-      },
-    },
-  };
 
   const logoSectionRef = useRef<HTMLElement>(null);
 
@@ -238,12 +220,12 @@ export default function LandingPage() {
             </div>
           </div>
         </motion.section>
-        {/* Divider Line */}
-        <div className="relative h-px mt-20">
+        {/* First Divider Line */}
+        <div className="relative h-px mt-20 mb-[1.7rem]">
           <motion.div
             className="absolute border-t border-gray-500"
             initial="hidden"
-            whileInView="visible" // Trigger line animation on scroll
+            whileInView="visible" // Trigger on scroll
             viewport={{ once: true, amount: 0.5 }}
             variants={{
               hidden: {
@@ -258,13 +240,14 @@ export default function LandingPage() {
                 x: "-50%",
                 left: "50%",
                 transition: {
-                  duration: 1.2, // Match with the text animation
+                  duration: 1.2, // Sync with the question animation
                   ease: "easeInOut",
                 },
               },
             }}
           />
         </div>
+
         {/* How It Works Section */}
         <section className="py-16 px-4">
           {/* Text Container with Bounce Effect */}
@@ -277,7 +260,12 @@ export default function LandingPage() {
               stiffness: 80,
               damping: 20,
             }}
-            viewport={{ once: true, amount: 0.5 }} // Trigger when 50% of the section is in view
+            viewport={{ once: true, amount: 0.5 }}
+            onAnimationComplete={() => {
+              // Trigger the second divider animation after this completes
+              const secondLine = document.querySelector("#second-divider");
+              secondLine?.classList.add("animate-line");
+            }}
             className="max-w-5xl mx-auto text-center"
           >
             <div
@@ -287,7 +275,7 @@ export default function LandingPage() {
               {/* Question and Answer Grouped Together */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }} // Trigger on scroll
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 1.2,
                   type: "spring",
@@ -315,6 +303,21 @@ export default function LandingPage() {
             </div>
           </motion.div>
         </section>
+
+        {/* Second Divider Line */}
+        <div className="relative mt-[1.7rem] ml-[30rem]">
+          <motion.div
+            id="second-divider"
+            className="absolute border-t border-gray-500 opacity-0" // Start hidden
+            initial={{ width: "0%" }}
+            animate={{ width: "50%", opacity: 0.6 }}
+            transition={{
+              duration: 1.2,
+              ease: "easeInOut",
+              delay: 1.2, // Delays to sync with the previous animation
+            }}
+          />
+        </div>
 
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">
