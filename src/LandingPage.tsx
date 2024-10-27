@@ -8,6 +8,7 @@ import {
 import Navbar from "./Navbar";
 import Popup from "./Popup"; // Import the Popup component
 import "./gradientAnimation.css";
+import "./scrollSnapStyles.scss";
 
 const gradientWords = ["Everything", "Tasks", "Assignments"];
 const imagePaths = ["/UIimg1.png", "/UIimg2.png", "/UIimage3.png"];
@@ -21,6 +22,8 @@ export default function LandingPage() {
     target: logoSectionRef,
     offset: ["start end", "end start"],
   });
+  const [cardsActive, setCardsActive] = useState(false); // Track if cards section is active
+  const cardsSectionRef = useRef(null);
 
   const logoSectionOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
@@ -45,11 +48,22 @@ export default function LandingPage() {
     const popupTimer = setTimeout(() => {
       setShowPopup(true);
     }, 5000);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setCardsActive(entry.isIntersecting); // Activate cards if intersecting
+      },
+      { threshold: 0.5 } // Trigger when 50% of the cards section is visible
+    );
+
+    if (cardsSectionRef.current) {
+      observer.observe(cardsSectionRef.current);
+    }
 
     return () => {
       clearInterval(wordInterval);
       clearInterval(imageInterval);
       clearTimeout(popupTimer);
+      if (cardsSectionRef.current) observer.unobserve(cardsSectionRef.current);
       window.removeEventListener("resize", handleResize);
     };
   }, []);
@@ -64,7 +78,6 @@ export default function LandingPage() {
       {/* Content Container */}
       <div className="relative z-6">
         <Navbar />
-
         {/* Main Content */}
         <main className="container mx-auto px-6 pt--72 pb-28 flex flex-col md:flex-row pt-14 items-center justify-center min-h-screen">
           {/* Text Section */}
@@ -176,7 +189,6 @@ export default function LandingPage() {
             </div>
           </motion.div>
         </main>
-
         {/* Enhanced University Logos Section */}
         <motion.section
           ref={logoSectionRef}
@@ -188,40 +200,98 @@ export default function LandingPage() {
           </h2>
           <div className="overflow-hidden">
             <div className="flex space-x-16">
+              {/* Two identical sets of logos to ensure smooth looping */}
               {[1, 2].map((iteration) => (
                 <motion.div
                   key={iteration}
                   className="flex space-x-16"
                   animate={{ x: ["0%", "-100%"] }}
                   transition={{
-                    duration: 20,
+                    duration: 20, // Adjust the speed as needed
                     repeat: Infinity,
-                    ease: "linear",
+                    ease: "linear", // Smooth looping
                   }}
                 >
-                  {/* University Logos */}
-                  {/* Add your university logos here */}
+                  <div className="w-40 h-24 flex items-center justify-center">
+                    <img
+                      src="/columbia.png"
+                      alt="Columbia University"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                  <div className="w-40 h-24 flex items-center justify-center">
+                    <img
+                      src="/stanford.png"
+                      alt="Stanford University"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                  <div className="w-40 h-24 flex items-center justify-center">
+                    <img
+                      src="/dartmouth.png"
+                      alt="Dartmouth College"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                  <div className="w-40 h-24 flex items-center justify-center">
+                    <img
+                      src="/johnhopkins.png"
+                      alt="Johns Hopkins University"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                  <div className="w-40 h-24 flex items-center justify-center">
+                    <img
+                      src="/uta.png"
+                      alt="University of Texas"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                  <div className="w-40 h-24 flex items-center justify-center">
+                    <img
+                      src="/asu.png"
+                      alt="Arizona State University"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                  <div className="w-40 h-24 flex items-center justify-center">
+                    <img
+                      src="/northwestern.png"
+                      alt="Northwestern University"
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
                 </motion.div>
               ))}
             </div>
           </div>
         </motion.section>
-<<<<<<< HEAD
-=======
-        {/* Enhanced University Logos Section */}
-        <motion.section
-          ref={logoSectionRef}
-          style={{ opacity: logoSectionOpacity }}
-        >
-          {/* University Logos Code Here */}
-        </motion.section>
->>>>>>> master
 
+        {/* Cards Section */}
+        <div
+          ref={cardsSectionRef}
+          className={`vertical-scroll-snap ${cardsActive ? "active" : ""}`}
+        >
+          <section className="stacking-slide">
+            <h2>Section 1</h2>
+          </section>
+          <section className="stacking-slide">
+            <h2>Section 2</h2>
+          </section>
+          <section className="stacking-slide">
+            <h2>Section 3</h2>
+          </section>
+          <section className="stacking-slide">
+            <h2>Section 4</h2>
+          </section>
+          <section className="stacking-slide">
+            <h2>Section 5</h2>
+          </section>
+        </div>
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-gray-500 bg-white">
           &copy; {new Date().getFullYear()} The Grid. All rights reserved.
         </footer>
-
         {/* Popup Component */}
         {showPopup && <Popup onClose={() => setShowPopup(false)} />}
       </div>

@@ -1,0 +1,43 @@
+.vertical-scroll-snap {
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  max-height: 80vh;
+
+  /* Add space between the university section and cards section */
+  margin-top: 5rem; /* Adjust the value as needed */
+
+  /* Optional: Add padding to ensure smooth layout */
+  padding-top: 3rem;
+}
+
+.stacking-slide {
+  scroll-snap-align: start;
+  height: 70vh;
+  width: 80%;
+  position: sticky;
+  margin-left: 10rem;
+  margin-bottom: 2rem;
+
+  /* Styling the card */
+  border-radius: 3rem;
+  border: 0.5px solid black;
+  top: 0;
+
+  &:nth-last-child(1) {
+    height: 100vh; /* Ensure the last slide takes full height */
+  }
+
+  padding: 3rem;
+  background-color: white;
+
+  @for $i from 0 through 10 {
+    &:nth-child(#{$i}) {
+      background-color: white;
+    }
+  }
+}
+
+/* Ensure all elements use consistent box-sizing */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
