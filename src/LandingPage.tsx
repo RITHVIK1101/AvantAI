@@ -4,7 +4,6 @@ import {
   useScroll,
   useTransform,
   AnimatePresence,
-  useInView,
 } from "framer-motion";
 import Navbar from "./Navbar";
 import Popup from "./Popup"; // Import the Popup component
@@ -19,9 +18,6 @@ export default function LandingPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const dividerRef = useRef(null);
-  const isInView = useInView(dividerRef, { once: true, amount: 0.5 });
-
   const dividerVariants = {
     hidden: {
       width: "0%",
