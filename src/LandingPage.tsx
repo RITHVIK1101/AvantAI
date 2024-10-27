@@ -111,14 +111,14 @@ export default function LandingPage() {
       <div className="relative z-6">
         <Navbar />
         {/* Main Content */}
-        <main className="container mx-auto px-6 pt--72 pb-28 flex flex-col md:flex-row pt-14 items-center justify-center min-h-screen">
+        <main className="container mx-auto px-6 pt--72 pb-28 flex flex-col md:flex-row pt-14 items-start md:items-center min-h-screen">
           {/* Text Section */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="md:w-1/2 text-center md:text-left md:px-12"
+            className="md:w-1/2 text-left md:px-12"
           >
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -132,12 +132,8 @@ export default function LandingPage() {
             </motion.div>
 
             <h1
-              className="text-3xl md:text-5xl font-semibold mb-6 text-gray-800"
-              style={{
-                lineHeight: "1.4",
-                marginBottom: "2rem",
-                fontFamily: "Poppins, sans-serif",
-              }}
+              className="text-4xl md:text-6xl font-medium mb-4 text-black"
+              style={{ lineHeight: "1.2", fontFamily: "Poppins, sans-serif" }}
             >
               The Campus Marketplace
               <br />
@@ -157,13 +153,12 @@ export default function LandingPage() {
               </AnimatePresence>
             </h1>
 
-            <p className="text-base mb-6 text-gray-600 font-bold">
-              The first marketplace to buy, sell, rent, and hire for gigs and
-              campus tasks. From grabbing boba to getting assignment help,
-              connect with peers and get things done together.
+            <p className="text-sm md:text-base mb-6 text-gray-600 font-medium">
+              A campus marketplace to buy, sell, and rent equipment or hire help
+              for tasks—connect with peers and make campus life easier.
             </p>
 
-            <div className="flex items-center justify-center md:justify-start mb-6">
+            <div className="flex items-center justify-start mb-6">
               <motion.span
                 className="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"
                 animate={{ opacity: [1, 0, 1] }}
@@ -174,7 +169,7 @@ export default function LandingPage() {
               </span>
             </div>
 
-            <div className="flex justify-center md:justify-start space-x-4">
+            <div className="flex justify-start space-x-4">
               <a
                 href="https://tally.so/r/wb4k4L"
                 target="_blank"
@@ -212,9 +207,9 @@ export default function LandingPage() {
                   src={imagePaths[currentImageIndex]}
                   alt="Gig Marketplace Illustration"
                   className="w-full h-full object-contain"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  initial={{ x: 50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: -50, opacity: 0 }}
                   transition={{ duration: 0.5 }}
                 />
               </AnimatePresence>
@@ -227,16 +222,16 @@ export default function LandingPage() {
           style={{ opacity: logoSectionOpacity }}
           className="py--6 text-center"
         >
-          <h2 className="text-2xl font-semibold text-gray-800 mb-8">
-            Trusted by students at top institutions
+          <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-8">
+            Building communities at institutions nationwide
           </h2>
           <div className="overflow-hidden">
-            <div className="flex space-x-16">
+            <div className="flex space-x-8 md:space-x-16">
               {/* Two identical sets of logos to ensure smooth looping */}
               {[1, 2].map((iteration) => (
                 <motion.div
                   key={iteration}
-                  className="flex space-x-16"
+                  className="flex space-x-8 md:space-x-16"
                   animate={{ x: ["0%", "-100%"] }}
                   transition={{
                     duration: 20, // Adjust the speed as needed
@@ -244,55 +239,26 @@ export default function LandingPage() {
                     ease: "linear", // Smooth looping
                   }}
                 >
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/columbia.png"
-                      alt="Columbia University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/stanford.png"
-                      alt="Stanford University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/dartmouth.png"
-                      alt="Dartmouth College"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/johnhopkins.png"
-                      alt="Johns Hopkins University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/uta.png"
-                      alt="University of Texas"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/asu.png"
-                      alt="Arizona State University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
-                  <div className="w-40 h-24 flex items-center justify-center">
-                    <img
-                      src="/northwestern.png"
-                      alt="Northwestern University"
-                      className="max-w-full max-h-full object-contain"
-                    />
-                  </div>
+                  {[
+                    "/columbia.png",
+                    "/stanford.png",
+                    "/dartmouth.png",
+                    "/johnhopkins.png",
+                    "/uta.png",
+                    "/asu.png",
+                    "/northwestern.png",
+                  ].map((src, index) => (
+                    <div
+                      key={index}
+                      className={`w-20 h-12 md:w-40 md:h-24 flex items-center justify-center grayscale`}
+                    >
+                      <img
+                        src={src}
+                        alt="University logo"
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                  ))}
                 </motion.div>
               ))}
             </div>
@@ -307,19 +273,55 @@ export default function LandingPage() {
           onTouchMove={handleTouchMove} // Mobile scroll
         >
           <section className="stacking-slide">
-            <h2>Section 1</h2>
+            <div className="card-content">
+              <span className="icon">📚</span>
+              <h2>Buy, Sell, and Rent Items</h2>
+              <p>
+                Find textbooks, furniture, and gadgets all on one platform.
+                Connect with fellow students to buy, sell, or rent items with
+                ease.
+              </p>
+            </div>
           </section>
           <section className="stacking-slide">
-            <h2>Section 2</h2>
+            <div className="card-content">
+              <span className="icon">⚙️</span>
+              <h2>Get Help with Tasks</h2>
+              <p>
+                Need help with assignments or errands? Pay others to assist you,
+                from quick campus deliveries to academic help.
+              </p>
+            </div>
           </section>
           <section className="stacking-slide">
-            <h2>Section 3</h2>
+            <div className="card-content">
+              <span className="icon">💬</span>
+              <h2>Community Engagement</h2>
+              <p>
+                Join student-led communities for discussions, learning, and
+                campus updates. The Grid keeps you connected.
+              </p>
+            </div>
           </section>
           <section className="stacking-slide">
-            <h2>Section 4</h2>
+            <div className="card-content">
+              <span className="icon">📈</span>
+              <h2>Save Time and Money</h2>
+              <p>
+                Discover the best deals from fellow students and get your tasks
+                done efficiently. Time saved is time earned.
+              </p>
+            </div>
           </section>
           <section className="stacking-slide">
-            <h2>Section 5</h2>
+            <div className="card-content">
+              <span className="icon">🎉</span>
+              <h2>Unlock Campus Life</h2>
+              <p>
+                Engage with your campus like never before, with easy access to
+                peer-to-peer services and events.
+              </p>
+            </div>
           </section>
         </div>
 
