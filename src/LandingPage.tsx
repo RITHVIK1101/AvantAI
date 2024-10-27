@@ -31,7 +31,7 @@ export default function LandingPage() {
       x: "-50%",
       left: "50%",
       transition: {
-        duration: 1.2,
+        duration: 1.2, // Keep the same duration for line animation
         ease: "easeInOut",
       },
     },
@@ -238,62 +238,80 @@ export default function LandingPage() {
             </div>
           </div>
         </motion.section>
-
+        {/* Divider Line */}
         <div className="relative h-px mt-20">
           <motion.div
             className="absolute border-t border-gray-500"
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={dividerVariants}
+            whileInView="visible" // Trigger line animation on scroll
+            viewport={{ once: true, amount: 0.5 }}
+            variants={{
+              hidden: {
+                width: "0%",
+                opacity: 0,
+                x: "-50%",
+                left: "50%",
+              },
+              visible: {
+                width: "50%",
+                opacity: 0.6,
+                x: "-50%",
+                left: "50%",
+                transition: {
+                  duration: 1.2, // Match with the text animation
+                  ease: "easeInOut",
+                },
+              },
+            }}
           />
         </div>
-
         {/* How It Works Section */}
         <section className="py-16 px-4">
+          {/* Text Container with Bounce Effect */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, scale: 0.9, y: 50 }} // Start smaller and lower
+            whileInView={{ opacity: 1, scale: 1, y: 0 }} // Trigger on scroll
+            transition={{
+              duration: 1.2, // Sync with the line animation
+              type: "spring", // Adds bounce effect
+              stiffness: 80,
+              damping: 20,
+            }}
+            viewport={{ once: true, amount: 0.5 }} // Trigger when 50% of the section is in view
             className="max-w-5xl mx-auto text-center"
           >
             <div
               className="inline-block md:text-[1.7rem] text-[1.3rem] leading-tight mx-2 md:mx-48"
               style={{ lineHeight: "1.3", fontFamily: "Poppins, sans-serif" }}
             >
-              {/* Question */}
-              <motion.span
-                className="text-black-800"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
+              {/* Question and Answer Grouped Together */}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }} // Trigger on scroll
+                transition={{
+                  duration: 1.2,
+                  type: "spring",
+                  stiffness: 80,
+                  damping: 20,
+                }}
+                viewport={{ once: true, amount: 0.5 }}
               >
-                How The Grid Works?{" "}
-              </motion.span>
+                {/* Question */}
+                <span className="text-black-800">How The Grid Works? </span>
 
-              {/* Answer for Desktop */}
-              <motion.span
-                className="hidden md:inline text-gray-400"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                We connect students for easy buying, selling, renting, and job
-                postings, creating a vibrant campus marketplace for everyone’s
-                needs.
-              </motion.span>
+                {/* Answer for Desktop */}
+                <span className="hidden md:inline text-gray-400">
+                  We connect students for easy buying, selling, renting, and job
+                  postings, creating a vibrant campus marketplace for everyone’s
+                  needs.
+                </span>
 
-              {/* Answer for Mobile */}
-              <motion.span
-                className="inline md:hidden text-gray-400"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                We connect students to buy, sell, rent, and post jobs, building
-                a vibrant campus marketplace for all.
-              </motion.span>
+                {/* Answer for Mobile */}
+                <span className="inline md:hidden text-gray-400">
+                  We connect students to buy, sell, rent, and post jobs,
+                  building a vibrant campus marketplace for all.
+                </span>
+              </motion.div>
             </div>
           </motion.div>
         </section>
