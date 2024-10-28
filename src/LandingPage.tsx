@@ -322,16 +322,30 @@ export default function LandingPage() {
           </motion.div>
         </section>
         {/* Second Divider Line */}
-        <div className="relative mt-[1.7rem] ml-[30rem]">
+        {/* Second Divider Line */}
+        <div className="relative h-px mt-6 mb-[1.7rem]">
           <motion.div
-            id="second-divider"
-            className="absolute border-t border-gray-500 opacity-0" // Start hidden
-            initial={{ width: "0%" }}
-            animate={{ width: "50%", opacity: 0.6 }}
-            transition={{
-              duration: 1.2,
-              ease: "easeInOut",
-              delay: 1.2, // Delays to sync with the previous animation
+            className="absolute border-t border-gray-500"
+            initial="hidden"
+            whileInView="visible" // Trigger on scroll
+            viewport={{ once: true, amount: 0.5 }}
+            variants={{
+              hidden: {
+                width: "0%",
+                opacity: 0,
+                x: "-50%",
+                left: "50%",
+              },
+              visible: {
+                width: "50%",
+                opacity: 0.6,
+                x: "-50%",
+                left: "50%",
+                transition: {
+                  duration: 1.2, // Sync with the question animation
+                  ease: "easeInOut",
+                },
+              },
             }}
           />
         </div>
