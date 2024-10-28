@@ -21,11 +21,17 @@ export default function LandingPage() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const logoSectionRef = useRef<HTMLElement>(null);
-
+  const gradientRef = useRef(null); // Reference for the gradient div
   const { scrollYProgress } = useScroll({
     target: logoSectionRef,
     offset: ["start end", "end start"],
   });
+  const gradientOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]); // Fade out
+  const gradientHeight = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["100vh", "0vh"]
+  ); // Shrink height
 
   const logoSectionOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
@@ -66,6 +72,18 @@ export default function LandingPage() {
 
       {/* Content Container */}
       <div className="relative z-6">
+        <motion.div
+          ref={gradientRef}
+          style={{
+            position: "fixed",
+            inset: 0,
+            height: gradientHeight, // Dynamic height shrinking
+            background: "linear-gradient(135deg, #a8edea, #fed6e3)", // Gradient colors
+            opacity: gradientOpacity, // Dynamic opacity
+            pointerEvents: "none", // Avoid blocking interactions
+            zIndex: -1, // Keep it behind other elements
+          }}
+        />
         <Navbar />
         {/* Main Content */}
         <main className="container mx-auto px-6 pt--72 pb-28 flex flex-col md:flex-row pt-14 items-start md:items-center min-h-screen">
@@ -248,88 +266,83 @@ export default function LandingPage() {
             }}
           />
         </div>
+        {/* How It Works Section */}
+        <section className="py-16 px-4">
+          {/* Text Container with Bounce Effect */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 50 }} // Start smaller and lower
+            whileInView={{ opacity: 1, scale: 1, y: 0 }} // Trigger on scroll
+            transition={{
+              duration: 1.2, // Sync with the line animation
+              type: "spring", // Adds bounce effect
+              stiffness: 80,
+              damping: 20,
+            }}
+            viewport={{ once: true, amount: 0.5 }}
+            onAnimationComplete={() => {
+              // Trigger the second divider animation after this completes
+              const secondLine = document.querySelector("#second-divider");
+              secondLine?.classList.add("animate-line");
+            }}
+            className="max-w-5xl mx-auto text-center"
+          >
+            <div
+              className="inline-block md:text-[1.7rem] text-[1.3rem] leading-tight mx-2 md:mx-48"
+              style={{ lineHeight: "1.3", fontFamily: "Poppins, sans-serif" }}
+            >
+              {/* Question and Answer Grouped Together */}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1.2,
+                  type: "spring",
+                  stiffness: 80,
+                  damping: 20,
+                }}
+                viewport={{ once: true, amount: 0.5 }}
+              >
+                {/* Question */}
+                <span className="text-black-800">How The Grid Works? </span>
 
-{/* How It Works Section */}
-<section className="py-16 px-4">
-  {/* Text Container with Bounce Effect */}
-  <motion.div
-    initial={{ opacity: 0, scale: 0.9, y: 50 }} // Start smaller and lower
-    whileInView={{ opacity: 1, scale: 1, y: 0 }} // Trigger on scroll
-    transition={{
-      duration: 1.2, // Sync with the line animation
-      type: "spring", // Adds bounce effect
-      stiffness: 80,
-      damping: 20,
-    }}
-    viewport={{ once: true, amount: 0.5 }}
-    onAnimationComplete={() => {
-      // Trigger the second divider animation after this completes
-      const secondLine = document.querySelector("#second-divider");
-      secondLine?.classList.add("animate-line");
-    }}
-    className="max-w-5xl mx-auto text-center"
-  >
-    <div
-      className="inline-block md:text-[1.7rem] text-[1.3rem] leading-tight mx-2 md:mx-48"
-      style={{ lineHeight: "1.3", fontFamily: "Poppins, sans-serif" }}
-    >
-      {/* Question and Answer Grouped Together */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 1.2,
-          type: "spring",
-          stiffness: 80,
-          damping: 20,
-        }}
-        viewport={{ once: true, amount: 0.5 }}
-      >
-        {/* Question */}
-        <span className="text-black-800">How The Grid Works? </span>
+                {/* Answer for Desktop */}
+                <span className="hidden md:inline text-gray-400">
+                  We connect students for easy buying, selling, renting, and job
+                  postings, creating a vibrant campus marketplace for everyone’s
+                  needs.
+                </span>
 
-        {/* Answer for Desktop */}
-        <span className="hidden md:inline text-gray-400">
-          We connect students for easy buying, selling, renting, and job
-          postings, creating a vibrant campus marketplace for everyone’s needs.
-        </span>
-
-        {/* Answer for Mobile */}
-        <span className="inline md:hidden text-gray-400">
-          We connect students to buy, sell, rent, and post jobs,
-          building a vibrant campus marketplace for all.
-        </span>
-      </motion.div>
-    </div>
-  </motion.div>
-</section>
-
-{/* Second Divider Line */}
-<div className="relative mt-[1.7rem] ml-[30rem]">
-  <motion.div
-    id="second-divider"
-    className="absolute border-t border-gray-500 opacity-0" // Start hidden
-    initial={{ width: "0%" }}
-    animate={{ width: "50%", opacity: 0.6 }}
-    transition={{
-      duration: 1.2,
-      ease: "easeInOut",
-      delay: 1.2, // Delays to sync with the previous animation
-    }}
-  />
-</div>
-
-{/* GridFeatures Section */}
-<GridFeatures /> {/* New addition of GridFeatures component */}
-
-{/* Footer */}
-<footer className="py-6 text-center text-sm text-gray-500 bg-white">
-  &copy; {new Date().getFullYear()} The Grid. All rights reserved.
-</footer>
-
-{/* Popup Component */}
-{showPopup && <Popup onClose={() => setShowPopup(false)} />}
-
+                {/* Answer for Mobile */}
+                <span className="inline md:hidden text-gray-400">
+                  We connect students to buy, sell, rent, and post jobs,
+                  building a vibrant campus marketplace for all.
+                </span>
+              </motion.div>
+            </div>
+          </motion.div>
+        </section>
+        {/* Second Divider Line */}
+        <div className="relative mt-[1.7rem] ml-[30rem]">
+          <motion.div
+            id="second-divider"
+            className="absolute border-t border-gray-500 opacity-0" // Start hidden
+            initial={{ width: "0%" }}
+            animate={{ width: "50%", opacity: 0.6 }}
+            transition={{
+              duration: 1.2,
+              ease: "easeInOut",
+              delay: 1.2, // Delays to sync with the previous animation
+            }}
+          />
+        </div>
+        {/* GridFeatures Section */}
+        <GridFeatures /> {/* New addition of GridFeatures component */}
+        {/* Footer */}
+        <footer className="py-6 text-center text-sm text-gray-500 bg-white mt-[9rem]">
+          &copy; {new Date().getFullYear()} The Grid. All rights reserved.
+        </footer>
+        {/* Popup Component */}
+        {showPopup && <Popup onClose={() => setShowPopup(false)} />}
       </div>
     </div>
   );

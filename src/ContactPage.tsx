@@ -8,7 +8,7 @@ const ContactContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  margin-top: -60px;
+  margin-top: -40px;
 
   background: linear-gradient(135deg, #a8edea, #fed6e3);
 `;
