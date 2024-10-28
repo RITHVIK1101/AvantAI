@@ -78,7 +78,7 @@ export default function LandingPage() {
         to top, 
         rgba(150, 237, 234, 3) 0%,    /* Start with solid blue-pink gradient */
         rgba(150, 242, 255, 0.6) 5%, /* Gradually fade at 40% */
-        rgba(224, 214, 227, 0.3) 55%, /* Lighter fade */
+        rgba(224, 214, 227, 0.3) 35%, /* Lighter fade */
         transparent 100%              /* Fully transparent at the top */
       )`,
           zIndex: 1,
