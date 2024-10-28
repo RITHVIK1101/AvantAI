@@ -104,7 +104,7 @@ export default function Navbar() {
           <MenuItem href="/">Home</MenuItem>
           <MenuItem href="/about">About</MenuItem>
           <MenuItem href="/contact">Contact</MenuItem>
-          <MenuItem href="/build-with-us">Build with Us</MenuItem>{" "}
+          {/* <MenuItem href="/build-with-us">Build with Us</MenuItem>{" "} */}
           {/* New Link */}
         </MenuItems>
         <a
