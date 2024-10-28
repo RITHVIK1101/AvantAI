@@ -131,9 +131,9 @@ export default function Navbar() {
           <a href="/contact" className="block py-2 px-4">
             Contact
           </a>
-          <a href="/build-with-us" className="block py-2 px-4">
+          {/* <a href="/build-with-us" className="block py-2 px-4">
             Build with Us
-          </a>
+          </a> */}
           <a
             href="https://tally.so/r/wb4k4L"
             target="_blank"
