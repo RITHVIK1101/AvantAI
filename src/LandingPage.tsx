@@ -69,6 +69,21 @@ export default function LandingPage() {
       <div className="absolute top-0 left-0 right-0 h-[46rem] md:mt-0 h-[91vh] bg-gradient-to-br from-purple-300 via-pink-300 to-orange-300 transform -skew-y-6 origin-top-left z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-400 via-pink-400 to-orange-400 opacity-50 animate-gradient"></div>
       </div>
+      <div
+        className="absolute bottom-0 left-0 right-0 pointer-events-none"
+        style={{
+          height: "100vh",
+          background: `
+      linear-gradient(
+        to top, 
+        rgba(200, 237, 234, 3) 0%,    /* Start with solid blue-pink gradient */
+        rgba(199, 242, 255, 0.6) 15%, /* Gradually fade at 40% */
+        rgba(254, 214, 227, 0.3) 45%, /* Lighter fade */
+        transparent 100%              /* Fully transparent at the top */
+      )`,
+          zIndex: 1,
+        }}
+      />
 
       {/* Content Container */}
       <div className="relative z-6">
@@ -352,7 +367,7 @@ export default function LandingPage() {
         {/* GridFeatures Section */}
         <GridFeatures /> {/* New addition of GridFeatures component */}
         {/* Footer */}
-        <footer className="py-6 text-center text-sm text-gray-500 bg-white mt-[9rem]">
+        <footer className="py-6 text-center text-sm text-black bg-white mt-[9rem]">
           &copy; {new Date().getFullYear()} The Grid. All rights reserved.
         </footer>
         {/* Popup Component */}

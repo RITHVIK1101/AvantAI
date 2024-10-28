@@ -13,7 +13,7 @@ const AboutContainer = styled(motion.div)`
   min-height: 100vh;
   padding: 70px; /* Add some padding */
   background: linear-gradient(135deg, #a8edea, #fed6e3);
-  margin-top: -60px;
+  margin-top: -10px;
   color: #222;
 `;
 
