@@ -76,9 +76,9 @@ export default function LandingPage() {
           background: `
       linear-gradient(
         to top, 
-        rgba(200, 237, 234, 3) 0%,    /* Start with solid blue-pink gradient */
-        rgba(199, 242, 255, 0.6) 15%, /* Gradually fade at 40% */
-        rgba(254, 214, 227, 0.3) 45%, /* Lighter fade */
+        rgba(150, 237, 234, 3) 0%,    /* Start with solid blue-pink gradient */
+        rgba(150, 242, 255, 0.6) 5%, /* Gradually fade at 40% */
+        rgba(224, 214, 227, 0.3) 55%, /* Lighter fade */
         transparent 100%              /* Fully transparent at the top */
       )`,
           zIndex: 1,
@@ -367,7 +367,7 @@ export default function LandingPage() {
         {/* GridFeatures Section */}
         <GridFeatures /> {/* New addition of GridFeatures component */}
         {/* Footer */}
-        <footer className="py-6 text-center text-sm text-black bg-white mt-[9rem]">
+        <footer className="py-6 text-center text-sm text-black bg-white mt-[6.5rem]">
           &copy; {new Date().getFullYear()} The Grid. All rights reserved.
         </footer>
         {/* Popup Component */}

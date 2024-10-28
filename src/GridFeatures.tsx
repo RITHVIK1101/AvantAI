@@ -1,6 +1,40 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { CheckSquare, Users, ShoppingCart, GraduationCap } from "lucide-react";
+import { Shield, Coins, ShoppingBag, ClipboardList } from "lucide-react";
+
+interface FeatureCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+function FeatureCard({ icon, title, description }: FeatureCardProps) {
+  return (
+    <motion.div
+      className="text-center md:text-left p-0 sm:p-6 md:bg-white md:rounded-lg md:shadow-lg hover:shadow-xl transition-shadow duration-200"
+      initial={{ opacity: 0, y: 20, scale: 0.95 }} // Initial hidden state
+      whileInView={{ opacity: 1, y: 0, scale: 1 }} // On scroll into view
+      transition={{
+        type: "spring", // Spring animation for smooth effect
+        stiffness: 120,
+        damping: 15,
+        duration: 2.5,
+      }}
+      viewport={{ once: true, amount: 0.3 }} // Trigger when 30% is visible
+    >
+      {/* Adjusted icon alignment and styling */}
+      <div className="bg-gradient-to-r from-purple-400 to-pink-500 p-4 rounded-full inline-block mb-4 text-white mx-auto md:mx-0">
+        {icon}
+      </div>
+
+      <h2 className="text-lg md:text-xl font-semibold mb-2 text-black">
+        {title}
+      </h2>
+
+      <p className="text-sm md:text-base text-gray-500">{description}</p>
+    </motion.div>
+  );
+}
 
 export default function GridFeatures() {
   const gradientRef = useRef(null); // Reference for tracking scroll
@@ -19,7 +53,7 @@ export default function GridFeatures() {
   return (
     <div
       ref={gradientRef}
-      className="relative bg-white p-8 font-sans mt:[6rem] md:mt-[9rem]"
+      className="relative bg-white p-6 sm:p-8 font-sans mt-10 md:mt-[9rem]"
     >
       {/* Gradient Background */}
       <motion.div
@@ -34,78 +68,39 @@ export default function GridFeatures() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto text-center px-4 md:px-0">
-        {/* Adjust heading size based on screen size */}
-        <h1 className="text-3xl md:text-5xl font-bold mb-4 text-black">
+      <div className="max-w-7xl mx-auto text-center px-6 sm:px-8 md:px-0">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-black">
           Discover The Grid
         </h1>
 
-        {/* Adjust paragraph size and spacing */}
-        <p className="text-lg md:text-2xl text-gray-500 md:mt-[2.3rem] mt-[2rem] mb-12 md:mb-16">
+        <p className="text-md sm:text-lg md:text-2xl text-gray-500 mt-3 sm:mt-4 mb-10 md:mt-[2.3rem] md:mb-16">
           Enhance your campus experience with tools for connecting, learning,
           and sharing.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:mt-[8rem] mt-[2rem] gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:mt-[8rem] mt-6">
           <FeatureCard
-            icon={<CheckSquare className="w-8 h-8 md:w-6 md:h-6" />}
-            title="Tasks"
-            description="Find peers for assignments, projects, and tasks to create a connected campus experience."
+            icon={<Shield className="w-8 h-8 sm:w-6 sm:h-6" />}
+            title="Anonymity"
+            description="Post jobs or requests anonymously or with your name. Choose your level of privacy with each posting."
           />
           <FeatureCard
-            icon={<Users className="w-8 h-8 md:w-6 md:h-6" />}
-            title="Community"
-            description="Connect across campus to build friendships and foster a supportive community."
+            icon={<Coins className="w-8 h-8 sm:w-6 sm:h-6" />}
+            title="Grid Credit"
+            description="Earn Grid Credit through platform activity to unlock free postings and access special offers."
           />
           <FeatureCard
-            icon={<ShoppingCart className="w-8 h-8 md:w-6 md:h-6" />}
+            icon={<ShoppingBag className="w-8 h-8 sm:w-6 sm:h-6" />}
             title="Marketplace"
-            description="Buy, sell, or rent campus essentials like textbooks and electronics."
+            description="Buy, sell, or rent items like textbooks, electronics, and more with your campus community."
           />
           <FeatureCard
-            icon={<GraduationCap className="w-8 h-8 md:w-6 md:h-6" />}
-            title="Tutoring"
-            description="Access or offer tutoring, creating a network of shared knowledge."
+            icon={<ClipboardList className="w-8 h-8 sm:w-6 sm:h-6" />}
+            title="Flexible Campus Gigs"
+            description="Earn money by taking on on-campus tasks whenever it fits your schedule. Help peers and gain extra cash with ease."
           />
         </div>
       </div>
     </div>
-  );
-}
-
-interface FeatureCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-}
-
-// Apply motion effect to FeatureCard
-function FeatureCard({ icon, title, description }: FeatureCardProps) {
-  return (
-    <motion.div
-      className="text-center md:text-left"
-      initial={{ opacity: 0, y: 20, scale: 0.9 }} // Initial hidden state
-      whileInView={{ opacity: 1, y: 0, scale: 1 }} // On scroll into view
-      transition={{
-        type: "spring", // Spring animation for bounce effect
-        stiffness: 100,
-        damping: 18,
-        duration: 2.8,
-      }}
-      viewport={{ once: true, amount: 0.3 }} // Trigger when 30% is visible
-    >
-      {/* Adjust icon size and alignment */}
-      <div className="bg-black p-4 rounded-lg inline-block mb-4 text-white mx-auto md:mx-0">
-        {icon}
-      </div>
-
-      {/* Adjust title size for mobile */}
-      <h2 className="text-lg md:text-xl font-semibold mb-2 text-black">
-        {title}
-      </h2>
-
-      {/* Adjust paragraph size for better readability */}
-      <p className="text-sm md:text-base text-gray-500">{description}</p>
-    </motion.div>
   );
 }
