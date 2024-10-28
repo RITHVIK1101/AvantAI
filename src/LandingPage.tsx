@@ -367,7 +367,7 @@ export default function LandingPage() {
         {/* GridFeatures Section */}
         <GridFeatures /> {/* New addition of GridFeatures component */}
         {/* Footer */}
-        <footer className="py-6 text-center text-sm text-black bg-white mt-[6.5rem]">
+        <footer className="py-6 text-center text-sm text-black bg-white mt-[9rem]">
           &copy; {new Date().getFullYear()} The Grid. All rights reserved.
         </footer>
         {/* Popup Component */}

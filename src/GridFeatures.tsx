@@ -78,7 +78,7 @@ export default function GridFeatures() {
           and sharing.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:mt-[8rem] mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:mt-[5rem] mt-6">
           <FeatureCard
             icon={<Shield className="w-8 h-8 sm:w-6 sm:h-6" />}
             title="Anonymity"
