@@ -9,7 +9,6 @@ const ContactContainer = styled(motion.div)`
   justify-content: center;
   height: 100vh;
   margin-top: 0px;
-
   background: linear-gradient(135deg, #a8edea, #fed6e3);
 `;
 
@@ -94,18 +93,8 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
-          <EmailText href="mailto:dhruvreddy05@gmail.com">
-            dhruvreddy05@gmail.com
-          </EmailText>
-        </EmailBox>
-
-        <EmailBox
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.4, ease: "easeOut" }}
-        >
-          <EmailText href="mailto:rithviksaba@gmail.com">
-            rithviksaba@gmail.com
+          <EmailText href="mailto:thegridly@gmail.com">
+            thegridly@gmail.com
           </EmailText>
         </EmailBox>
 

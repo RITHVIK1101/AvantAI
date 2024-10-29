@@ -23,7 +23,7 @@ const AboutContainer = styled(motion.div)`
 const ContentWrapper = styled(motion.div)`
   padding: 60px 20px;
   max-width: 900px;
-  margin: 0 auto;
+  margin: 25px auto 0; // Added top margin here
 
   @media (max-width: 768px) {
     padding: 50px 20px;
@@ -32,6 +32,7 @@ const ContentWrapper = styled(motion.div)`
     padding: 30px 15px;
   }
 `;
+
 
 const Heading = styled(motion.h1)`
   font-size: 2.5rem;
@@ -227,7 +228,7 @@ export default function AboutPage() {
               <StatIcon>
                 <FaUsers size={24} color="#fcb69f" />
               </StatIcon>
-              <StatNumber>4</StatNumber>
+              <StatNumber>5</StatNumber>
               <StatLabel>Team Members</StatLabel>
             </StatCard>
             <StatCard>
@@ -235,7 +236,7 @@ export default function AboutPage() {
                 <FaUserGraduate size={24} color="#fcb69f" />
               </StatIcon>
               <StatNumber>30+</StatNumber>
-              <StatLabel>Campuses Reached</StatLabel>
+              <StatLabel>Campuses Targeted</StatLabel>
             </StatCard>
           </StatsGrid>
         </ContentWrapper>
