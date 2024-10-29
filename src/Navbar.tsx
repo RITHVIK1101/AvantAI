@@ -98,7 +98,7 @@ export default function Navbar() {
           <div style={{ width: "54px", height: "24px" }}>
             <GridLogo />
           </div>
-          <span className="hidden md:inline">The Grid</span>
+          <span className="hidden md:inline">The Gridly</span>
         </Logo>
         <MenuItems>
           <MenuItem href="/">Home</MenuItem>

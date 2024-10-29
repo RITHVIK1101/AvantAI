@@ -231,13 +231,13 @@ export default function AboutPage() {
           animate="visible"
         >
           <Section>
-            <Heading variants={itemVariants}>About The Grid</Heading>
+            <Heading variants={itemVariants}>About The Gridly</Heading>
             <Subheading variants={itemVariants}>
               Connecting Students in New and Exciting Ways
             </Subheading>
             <Text variants={itemVariants}>
               College students value <Highlight>time</Highlight> and{" "}
-              <Highlight>money</Highlight>. At <Highlight>The Grid</Highlight>,
+              <Highlight>money</Highlight>. At <Highlight>The Gridly</Highlight>,
               we created a platform where you can buy, sell, and rent items from
               fellow students. Whether it's textbooks, furniture, or
               gadgets—you'll find it here.
@@ -285,8 +285,8 @@ export default function AboutPage() {
                 color="#ff8c00"
                 style={{ marginBottom: "16px" }}
               />
-              <StatNumber>50+</StatNumber>
-              <StatLabel>Active Beta Users</StatLabel>
+              <StatNumber>30+</StatNumber>
+              <StatLabel>College Communities</StatLabel>
             </StatCard>
           </StatsGrid>
 

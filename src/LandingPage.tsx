@@ -318,7 +318,7 @@ export default function LandingPage() {
                 viewport={{ once: true, amount: 0.5 }}
               >
                 {/* Question */}
-                <span className="text-black-800">How The Grid Works? </span>
+                <span className="text-black-800">How The Gridly Works? </span>
 
                 {/* Answer for Desktop */}
                 <span className="hidden md:inline text-gray-400">
@@ -368,7 +368,7 @@ export default function LandingPage() {
         <GridFeatures /> {/* New addition of GridFeatures component */}
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-black bg-white mt-[9rem]">
-          &copy; {new Date().getFullYear()} The Grid. All rights reserved.
+          &copy; {new Date().getFullYear()} The Gridly. All rights reserved.
         </footer>
         {/* Popup Component */}
         {showPopup && <Popup onClose={() => setShowPopup(false)} />}
