@@ -10,7 +10,6 @@ import Popup from "./Popup"; // Import the Popup component
 import GridFeatures from "./GridFeatures";
 import "./gradientAnimation.css";
 import "./scrollSnapStyles.scss";
-import GlitchText from "./GlitchText"; // Import GlitchText here
 
 const gradientWords = ["Everything", "Tasks", "Assignments"];
 const imagePaths = ["/UIimg1.png", "/UIimg2.png", "/UIimage3.png"];
@@ -144,10 +143,27 @@ export default function LandingPage() {
               </AnimatePresence>
             </h1>
 
-            <GlitchText
-  text="A campus marketplace to buy, sell, and rent equipment or hire help for tasks—connect with peers and make campus life easier."
+            <motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.5 }}
   className="text-sm md:text-base mb-6 text-gray-600 font-medium"
-/>
+>
+  {"A campus marketplace to buy, sell, and rent equipment or hire help for tasks—connect with peers and make campus life easier."
+    .split(" ")
+    .map((word, index) => (
+      <motion.span
+        key={index}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, delay: index * 0.1 }}
+        style={{ display: "inline-block", marginRight: "4px" }}
+      >
+        {word}
+      </motion.span>
+    ))}
+</motion.div>
+
 
 
             <div className="flex items-center justify-start mb-6">
