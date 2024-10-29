@@ -109,7 +109,7 @@ export default function Popup({ onClose }: PopupProps) {
               fontFamily: "'Roboto', sans-serif",
             }}
           >
-            Be part of an exclusive group with permanent access to The Grid's
+            Be part of an exclusive group with permanent access to The Gridly's
             top features. Join the waitlist today for early access & member-only
             perks.
           </p>
