@@ -19,8 +19,9 @@ export default function LandingPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showTooltip, setShowTooltip] = useState(false); // State for tooltip visibility
 
-  const logoSectionRef = useRef<HTMLElement>(null);
+  const logoSectionRef = useRef(null);
   const gradientRef = useRef(null); // Reference for the gradient div
   const { scrollYProgress } = useScroll({
     target: logoSectionRef,
@@ -144,27 +145,25 @@ export default function LandingPage() {
             </h1>
 
             <motion.div
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{ duration: 0.5 }}
-  className="text-sm md:text-base mb-6 text-gray-600 font-medium"
->
-  {"A campus marketplace to buy, sell, and rent equipment or hire help for tasks—connect with peers and make campus life easier."
-    .split(" ")
-    .map((word, index) => (
-      <motion.span
-        key={index}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.25, delay: index * 0.1 }}
-        style={{ display: "inline-block", marginRight: "4px" }}
-      >
-        {word}
-      </motion.span>
-    ))}
-</motion.div>
-
-
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-sm md:text-base mb-6 text-gray-600 font-medium"
+            >
+              {"A campus marketplace to buy, sell, and rent equipment or hire help for tasks—connect with peers and make campus life easier."
+                .split(" ")
+                .map((word, index) => (
+                  <motion.span
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.25, delay: index * 0.1 }}
+                    style={{ display: "inline-block", marginRight: "4px" }}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+            </motion.div>
 
             <div className="flex items-center justify-start mb-6">
               <motion.span
@@ -172,9 +171,47 @@ export default function LandingPage() {
                 animate={{ opacity: [1, 0, 1] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
-              <span className="text-sm font-medium text-gray-600">
+              <span className="text-sm font-medium text-gray-600 mr-2">
                 Beta launching soon
               </span>
+              {/* Information Button */}
+              <button
+  className="text-gray-500 hover:text-gray-800 focus:outline-none"
+  onClick={() => setShowTooltip(!showTooltip)}
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="w-5 h-5"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 9v2m0 4h.01M12 5.25a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5z"
+    />
+  </svg>
+</button>
+
+{showTooltip && (
+  <div className="absolute bg-white text-black text-xs p-2 rounded shadow-lg mt-2 w-64 z-10">
+    <div className="flex justify-between items-center">
+      <span>
+        Join thousands of students on The Gridly’s waitlist to access The Gridly
+        early or become part of our beta testing group.
+      </span>
+      <button
+        className="text-gray-500 hover:text-gray-800 ml-2"
+        onClick={() => setShowTooltip(false)}
+      >
+        &times;
+      </button>
+    </div>
+  </div>
+)}
+
             </div>
 
             <div className="flex justify-start space-x-4">
@@ -224,7 +261,7 @@ export default function LandingPage() {
             </div>
           </motion.div>
         </main>
-        {/* Enhanced University Logos Section */}
+
         {/* Enhanced University Logos Section */}
         <motion.section
           ref={logoSectionRef}
@@ -272,6 +309,7 @@ export default function LandingPage() {
             </div>
           </div>
         </motion.section>
+
         {/* First Divider Line */}
         <div className="relative h-px mt-20 mb-[1.7rem]">
           <motion.div
@@ -299,6 +337,7 @@ export default function LandingPage() {
             }}
           />
         </div>
+
         {/* How It Works Section */}
         <section className="py-16 px-4">
           {/* Text Container with Bounce Effect */}
@@ -354,7 +393,7 @@ export default function LandingPage() {
             </div>
           </motion.div>
         </section>
-        {/* Second Divider Line */}
+
         {/* Second Divider Line */}
         <div className="relative h-px mt-6 mb-[1.7rem]">
           <motion.div
@@ -382,12 +421,15 @@ export default function LandingPage() {
             }}
           />
         </div>
+
         {/* GridFeatures Section */}
         <GridFeatures /> {/* New addition of GridFeatures component */}
+
         {/* Footer */}
         <footer className="py-6 text-center text-sm text-black bg-white mt-[9rem]">
           &copy; {new Date().getFullYear()} The Gridly. All rights reserved.
         </footer>
+
         {/* Popup Component */}
         {showPopup && <Popup onClose={() => setShowPopup(false)} />}
       </div>
