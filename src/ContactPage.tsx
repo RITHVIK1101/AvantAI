@@ -83,6 +83,23 @@ const NotificationButton = styled(motion.button)`
   }
 `;
 
+const SpecialNotificationButton = styled(motion.button)`
+  background-color: #ff4081;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #e91e63;
+    transform: scale(1.05);
+  }
+`;
+
 const FooterText = styled(motion.p)`
   margin-top: 40px;
   color: #666;
@@ -103,7 +120,13 @@ export default function ContactPage() {
     }
   }, []);
 
-  const handleSendNotification = () => {
+  const requestNotificationPermission = async () => {
+    const newPermission = await Notification.requestPermission();
+    setNotificationPermission(newPermission);
+    return newPermission;
+  };
+
+  const handleSendNotification = async () => {
     if (typeof window === "undefined" || !("Notification" in window)) {
       alert("This browser does not support notifications.");
       return;
@@ -112,15 +135,32 @@ export default function ContactPage() {
     if (notificationPermission === "granted") {
       new Notification("Thank you for clicking this button!");
     } else if (notificationPermission !== "denied") {
-      // Request permission in response to user action
-      Notification.requestPermission().then((newPermission) => {
-        setNotificationPermission(newPermission);
-        if (newPermission === "granted") {
-          new Notification("Thank you for clicking this button!");
-        } else {
-          alert("Notification permissions are required to send notifications.");
-        }
-      });
+      const newPermission = await requestNotificationPermission();
+      if (newPermission === "granted") {
+        new Notification("Thank you for clicking this button!");
+      } else {
+        alert("Notification permissions are required to send notifications.");
+      }
+    } else {
+      alert("Notification permissions are denied. Please enable them in your device settings.");
+    }
+  };
+
+  const handleSendSpecialNotification = async () => {
+    if (typeof window === "undefined" || !("Notification" in window)) {
+      alert("This browser does not support notifications.");
+      return;
+    }
+
+    if (notificationPermission === "granted") {
+      new Notification("I love you daddy");
+    } else if (notificationPermission !== "denied") {
+      const newPermission = await requestNotificationPermission();
+      if (newPermission === "granted") {
+        new Notification("I love you daddy");
+      } else {
+        alert("Notification permissions are required to send notifications.");
+      }
     } else {
       alert("Notification permissions are denied. Please enable them in your device settings.");
     }
@@ -166,6 +206,15 @@ export default function ContactPage() {
         >
           Send Notification
         </NotificationButton>
+
+        <SpecialNotificationButton
+          onClick={handleSendSpecialNotification}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.3 }}
+        >
+          Send Special Notification
+        </SpecialNotificationButton>
 
         <FooterText
           initial={{ opacity: 0 }}
