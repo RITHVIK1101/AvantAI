@@ -1,7 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import Navbar from "./Navbar"; // Adjust the path according to your project structure
+import Navbar from "./Navbar";
+
+// Define the props interface for the Button component
+interface ButtonProps {
+  color?: string;
+  hoverColor?: string;
+}
 
 const ContactContainer = styled(motion.div)`
   display: flex;
@@ -11,12 +17,13 @@ const ContactContainer = styled(motion.div)`
   height: 100vh;
   margin-top: 0px;
   background: linear-gradient(135deg, #a8edea, #fed6e3);
+  padding: 0 20px;
 `;
 
 const ContactTitle = styled(motion.h1)`
   font-size: 42px;
   color: #222;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   margin-top: 70px;
   text-align: center;
   letter-spacing: 1.2px;
@@ -49,25 +56,9 @@ const EmailText = styled.a`
   }
 `;
 
-const Button = styled(motion.button)`
-  background-color: #000;
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 24px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  margin-top: 40px;
-  transition: all 0.3s ease;
-  &:hover {
-    background-color: #333;
-    transform: scale(1.05);
-  }
-`;
-
-const NotificationButton = styled(motion.button)`
-  background-color: #007aff;
+// Add the props type to the Button styled component
+const Button = styled(motion.button)<ButtonProps>`
+  background-color: ${(props) => props.color || "#000"};
   color: #fff;
   padding: 12px 24px;
   border-radius: 24px;
@@ -76,26 +67,10 @@ const NotificationButton = styled(motion.button)`
   cursor: pointer;
   border: none;
   margin-top: 20px;
+  margin-bottom: 10px;
   transition: all 0.3s ease;
   &:hover {
-    background-color: #005bb5;
-    transform: scale(1.05);
-  }
-`;
-
-const SpecialNotificationButton = styled(motion.button)`
-  background-color: #ff4081;
-  color: #fff;
-  padding: 12px 24px;
-  border-radius: 24px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  margin-top: 20px;
-  transition: all 0.3s ease;
-  &:hover {
-    background-color: #e91e63;
+    background-color: ${(props) => props.hoverColor || "#333"};
     transform: scale(1.05);
   }
 `;
@@ -107,63 +82,69 @@ const FooterText = styled(motion.p)`
 `;
 
 export default function ContactPage() {
-  // Explicitly define the type of notificationPermission
-  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission | null>(null);
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && "Notification" in window) {
-      const permission = Notification.permission;
-      setNotificationPermission(permission);
-      // Do not request permission here; it should be in response to user action
-    } else {
-      console.warn("This browser does not support notifications.");
+  const urlBase64ToUint8Array = (base64String: string) => {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding)
+      .replace(/-/g, "+")
+      .replace(/_/g, "/");
+
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
     }
-  }, []);
-
-  const requestNotificationPermission = async () => {
-    const newPermission = await Notification.requestPermission();
-    setNotificationPermission(newPermission);
-    return newPermission;
+    return outputArray;
   };
 
-  const handleSendNotification = async () => {
-    if (typeof window === "undefined" || !("Notification" in window)) {
-      alert("This browser does not support notifications.");
-      return;
-    }
+  const subscribeUser = async () => {
+    if ("serviceWorker" in navigator && "PushManager" in window) {
+      const registration = await navigator.serviceWorker.ready;
 
-    if (notificationPermission === "granted") {
-      new Notification("Thank you for clicking this button!");
-    } else if (notificationPermission !== "denied") {
-      const newPermission = await requestNotificationPermission();
-      if (newPermission === "granted") {
-        new Notification("Thank you for clicking this button!");
-      } else {
-        alert("Notification permissions are required to send notifications.");
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") {
+        alert("Permission not granted for Notifications");
+        return;
+      }
+
+      const subscribeOptions = {
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(
+          "BNRiNnC_trFbArHQncLj9X-6XEVBaBqXVM4axQBrzoLl1ePrxXaiUT0X82soQgvp_CivVMMxkZ2J-svQIuVdAAY"
+        ),
+      };
+
+      try {
+        const pushSubscription = await registration.pushManager.subscribe(
+          subscribeOptions
+        );
+
+        // Send subscription to the server
+        await fetch("/subscribe", {
+          method: "POST",
+          body: JSON.stringify(pushSubscription),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        setIsSubscribed(true);
+        alert("Subscribed to push notifications!");
+      } catch (error) {
+        console.error("Push subscription error: ", error);
+        alert("Failed to subscribe to push notifications.");
       }
     } else {
-      alert("Notification permissions are denied. Please enable them in your device settings.");
+      alert("Push messaging is not supported in your browser.");
     }
   };
 
-  const handleSendSpecialNotification = async () => {
-    if (typeof window === "undefined" || !("Notification" in window)) {
-      alert("This browser does not support notifications.");
-      return;
-    }
-
-    if (notificationPermission === "granted") {
-      new Notification("I love you daddy");
-    } else if (notificationPermission !== "denied") {
-      const newPermission = await requestNotificationPermission();
-      if (newPermission === "granted") {
-        new Notification("I love you daddy");
-      } else {
-        alert("Notification permissions are required to send notifications.");
-      }
-    } else {
-      alert("Notification permissions are denied. Please enable them in your device settings.");
-    }
+  const sendNotification = async () => {
+    await fetch("/send-notification", {
+      method: "POST",
+    });
   };
 
   return (
@@ -187,34 +168,34 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
-          <EmailText href="mailto:thegridly@gmail.com">thegridly@gmail.com</EmailText>
+          <EmailText href="mailto:thegridly@gmail.com">
+            thegridly@gmail.com
+          </EmailText>
         </EmailBox>
 
-        <Button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ duration: 0.3 }}
-        >
-          Send Us a Message
-        </Button>
-
-        <NotificationButton
-          onClick={handleSendNotification}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ duration: 0.3 }}
-        >
-          Send Notification
-        </NotificationButton>
-
-        <SpecialNotificationButton
-          onClick={handleSendSpecialNotification}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ duration: 0.3 }}
-        >
-          Send Special Notification
-        </SpecialNotificationButton>
+        {!isSubscribed ? (
+          <Button
+            onClick={subscribeUser}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            color="#28a745"
+            hoverColor="#218838"
+          >
+            Subscribe to Notifications
+          </Button>
+        ) : (
+          <Button
+            onClick={sendNotification}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            color="#007bff"
+            hoverColor="#0069d9"
+          >
+            Send Special Notification
+          </Button>
+        )}
 
         <FooterText
           initial={{ opacity: 0 }}
