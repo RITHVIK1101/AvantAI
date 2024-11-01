@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import Navbar from "./Navbar"; // Adjust the path according to your project structure
@@ -65,6 +66,23 @@ const Button = styled(motion.button)`
   }
 `;
 
+const NotificationButton = styled(motion.button)`
+  background-color: #007aff;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #005bb5;
+    transform: scale(1.05);
+  }
+`;
+
 const FooterText = styled(motion.p)`
   margin-top: 40px;
   color: #666;
@@ -72,6 +90,37 @@ const FooterText = styled(motion.p)`
 `;
 
 export default function ContactPage() {
+  const [notificationPermission, setNotificationPermission] = useState(Notification.permission);
+
+  useEffect(() => {
+    // Request notification permission on component mount if not already granted or denied
+    if (Notification.permission === "default") {
+      Notification.requestPermission().then((permission) => {
+        setNotificationPermission(permission);
+      });
+    } else {
+      setNotificationPermission(Notification.permission);
+    }
+  }, []);
+
+  const handleSendNotification = () => {
+    if (notificationPermission === "granted") {
+      new Notification("Thank you for clicking this button!");
+    } else if (notificationPermission === "default") {
+      // Ask for permission again
+      Notification.requestPermission().then((permission) => {
+        setNotificationPermission(permission);
+        if (permission === "granted") {
+          new Notification("Thank you for clicking this button!");
+        } else {
+          alert("Notification permissions are required to send notifications.");
+        }
+      });
+    } else {
+      alert("Notification permissions are denied. Please enable them in your browser settings.");
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -105,6 +154,15 @@ export default function ContactPage() {
         >
           Send Us a Message
         </Button>
+
+        <NotificationButton
+          onClick={handleSendNotification}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.3 }}
+        >
+          Send Notification
+        </NotificationButton>
 
         <FooterText
           initial={{ opacity: 0 }}
