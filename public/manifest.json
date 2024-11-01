@@ -1,25 +1,30 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "The Gridly",
+  "name": "The Gridly - Marketplace for College Students",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "/icons/icon-512x512.jpeg",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "description": "The Gridly is a campus community marketplace connecting college students for buying, selling, renting, and job opportunities.",
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot-wide.jpeg",
+      "sizes": "1280x720",
+      "type": "image/jpeg",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/screenshot-mobile.jpeg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "form_factor": "narrow"
+    }
+  ]
 }
