@@ -90,34 +90,39 @@ const FooterText = styled(motion.p)`
 `;
 
 export default function ContactPage() {
-  const [notificationPermission, setNotificationPermission] = useState(Notification.permission);
+  // Explicitly define the type of notificationPermission
+  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission | null>(null);
 
   useEffect(() => {
-    // Request notification permission on component mount if not already granted or denied
-    if (Notification.permission === "default") {
-      Notification.requestPermission().then((permission) => {
-        setNotificationPermission(permission);
-      });
+    if (typeof window !== "undefined" && "Notification" in window) {
+      const permission = Notification.permission;
+      setNotificationPermission(permission);
+      // Do not request permission here; it should be in response to user action
     } else {
-      setNotificationPermission(Notification.permission);
+      console.warn("This browser does not support notifications.");
     }
   }, []);
 
   const handleSendNotification = () => {
+    if (typeof window === "undefined" || !("Notification" in window)) {
+      alert("This browser does not support notifications.");
+      return;
+    }
+
     if (notificationPermission === "granted") {
       new Notification("Thank you for clicking this button!");
-    } else if (notificationPermission === "default") {
-      // Ask for permission again
-      Notification.requestPermission().then((permission) => {
-        setNotificationPermission(permission);
-        if (permission === "granted") {
+    } else if (notificationPermission !== "denied") {
+      // Request permission in response to user action
+      Notification.requestPermission().then((newPermission) => {
+        setNotificationPermission(newPermission);
+        if (newPermission === "granted") {
           new Notification("Thank you for clicking this button!");
         } else {
           alert("Notification permissions are required to send notifications.");
         }
       });
     } else {
-      alert("Notification permissions are denied. Please enable them in your browser settings.");
+      alert("Notification permissions are denied. Please enable them in your device settings.");
     }
   };
 
@@ -142,9 +147,7 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
-          <EmailText href="mailto:thegridly@gmail.com">
-            thegridly@gmail.com
-          </EmailText>
+          <EmailText href="mailto:thegridly@gmail.com">thegridly@gmail.com</EmailText>
         </EmailBox>
 
         <Button
