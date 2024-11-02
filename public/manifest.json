@@ -45,11 +45,7 @@
       "description": "Quickly post an item for sale or rent.",
       "url": "/post-listing",
       "icons": [
-        {
-          "src": "/icons/icon-192x192.jpeg",
-          "sizes": "192x192",
-          "type": "image/jpeg"
-        }
+      
       ]
     },
     {

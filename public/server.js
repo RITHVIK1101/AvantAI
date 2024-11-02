@@ -2,11 +2,14 @@
 const express = require("express");
 const webpush = require("web-push");
 const cors = require("cors");
+
+// Initialize the app
+const app = express();
+
+// Use CORS with specific origin
 app.use(cors({ origin: "http://localhost:3000" }));
 
-
-
-const app = express();
+// Enable JSON parsing for incoming requests
 app.use(express.json());
 
 const vapidKeys = {
@@ -14,6 +17,7 @@ const vapidKeys = {
   privateKey: "GaZib7OtsdEIFw_fC_hPBNPJSq8tuMj77PpjhFnmGj4", // Replace with your VAPID private key
 };
 
+// Set VAPID details for web-push
 webpush.setVapidDetails(
   "mailto:your-email@example.com",
   vapidKeys.publicKey,
