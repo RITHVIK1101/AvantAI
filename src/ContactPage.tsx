@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import Navbar from "./Navbar";
 
-// Define the props interface for the Button component
 interface ButtonProps {
   color?: string;
   hoverColor?: string;
@@ -56,7 +55,6 @@ const EmailText = styled.a`
   }
 `;
 
-// Add the props type to the Button styled component
 const Button = styled(motion.button)<ButtonProps>`
   background-color: ${(props) => props.color || "#000"};
   color: #fff;
@@ -81,23 +79,21 @@ const FooterText = styled(motion.p)`
   font-size: 14px;
 `;
 
+function urlBase64ToUint8Array(base64String: string) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
 export default function ContactPage() {
   const [isSubscribed, setIsSubscribed] = useState(false);
-
-  const urlBase64ToUint8Array = (base64String: string) => {
-    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-    const base64 = (base64String + padding)
-      .replace(/-/g, "+")
-      .replace(/_/g, "/");
-
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-
-    for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
-  };
 
   const subscribeUser = async () => {
     if ("serviceWorker" in navigator && "PushManager" in window) {
@@ -121,8 +117,7 @@ export default function ContactPage() {
           subscribeOptions
         );
 
-        // Send subscription to the server
-        await fetch("/subscribe", {
+        await fetch("http://localhost:5001/subscribe", {
           method: "POST",
           body: JSON.stringify(pushSubscription),
           headers: {
@@ -142,7 +137,7 @@ export default function ContactPage() {
   };
 
   const sendNotification = async () => {
-    await fetch("/send-notification", {
+    await fetch("http://localhost:5001/send-notification", {
       method: "POST",
     });
   };
