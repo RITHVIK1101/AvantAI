@@ -221,7 +221,7 @@ export default function AboutPage() {
               <StatIcon>
                 <FaCalendarAlt size={24} color="#fcb69f" />
               </StatIcon>
-              <StatNumber>2024</StatNumber>
+              <StatNumber>2035</StatNumber>
               <StatLabel>Founded</StatLabel>
             </StatCard>
             <StatCard>
